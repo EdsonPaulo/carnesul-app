@@ -1,0 +1,156 @@
+[{
+    "id": 1,
+    "name": "Carne 1",
+    "price": 4500,
+    "weight": 1.5,
+    "images": [
+        {"src": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png"}
+    ],
+    "categories": [
+        {"name": "categoria x"},
+        {"name": "categoria y"}
+    ],
+    "category": 1
+},
+{
+    "id": 2,
+    "name": "Carne xyz",
+    "price": 8000,
+    "weight": 2,
+    "images": [
+    ],
+    "categories": [
+        {"name": "categoria x"},
+        {"name": "categoria y"}
+    ],
+    "category": 2
+},
+{
+    "id": 3,
+    "name": "Carne abc",
+    "price": 9000,
+    "weight": 1,
+    "images": [
+        {"src": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png"}
+    ],
+    "categories": [
+        {"name": "categoria x"},
+        {"name": "categoria y"}
+    ],
+    "category": 3
+},
+{
+    "id": 4,
+    "name": "Carne 1",
+    "price": 4500,
+    "weight": 1.5,
+    "images": [
+    ],
+    "categories": [
+        {"name": "categoria x"},
+        {"name": "categoria y"}
+    ],
+    "category": 3
+},
+{
+    "id": 5,
+    "name": "Carne xyz",
+    "price": 8000,
+    "weight": 2,
+    "images": [
+        {"src": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png"}
+    ],
+    "categories": [
+        {"name": "categoria x"},
+        {"name": "categoria y"}
+    ],
+    "category": 2
+},
+{
+    "id": 6,
+    "name": "Carne abc",
+    "price": 9000,
+    "weight": 1,
+    "images": [
+        {"src": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png"}
+    ],
+    "categories": [
+        {"name": "categoria x"},
+        {"name": "categoria y"}
+    ],
+    "category": 1
+},
+{
+    "id": 7,
+    "name": "Carne abc",
+    "price": 9000,
+    "weight": 1,
+    "images": [
+        {"src": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png"}
+    ],
+    "categories": [
+        {"name": "categoria x"},
+        {"name": "categoria y"}
+    ],
+    "category": 2
+},
+{
+    "id": 8,
+    "name": "Carne abc",
+    "price": 9000,
+    "weight": 1,
+    "images": [
+        {"src": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png"}
+    ],
+    "categories": [
+        {"name": "categoria x"},
+        {"name": "categoria y"}
+    ],
+    "category": 3
+}
+,
+{
+    "id": 9,
+    "name": "Carne abc",
+    "price": 9000,
+    "weight": 1,
+    "images": [
+        {"src": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png"}
+    ],
+    "categories": [
+        {"name": "categoria x"},
+        {"name": "categoria y"}
+    ],
+    "category": 1
+}
+,
+{
+    "id": 10,
+    "name": "Carne abc",
+    "price": 9000,
+    "weight": 1,
+    "images": [
+        {"src": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png"}
+    ],
+    "categories": [
+        {"name": "categoria x"},
+        {"name": "categoria y"}
+    ],
+    "category": 3
+}
+,
+{
+    "id": 11,
+    "name": "Carne abc",
+    "price": 9000,
+    "weight": 1,
+    "images": [
+        {"src": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png"}
+    ],
+    "categories": [
+        {"name": "categoria x"},
+        {"name": "categoria y"}
+    ],
+    "category": 2
+}
+]
