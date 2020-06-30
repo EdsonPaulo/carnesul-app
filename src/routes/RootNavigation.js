@@ -9,6 +9,7 @@ import HomeTabBar from '../components/HomeTabBar'
 import SideBar from '../components/SideBar'
 
 import {
+  Welcome,
   Landing,
   Login,
   SignUp,
@@ -40,23 +41,6 @@ const HomeTabs = () => {
 }
 
 
-/**
-const HomeNavigation = () => {
-  const HomeStackNavigator = createStackNavigator()
-  return (
-    <HomeStackNavigator.Navigator screenOptions={{ headerShown: false, animationEnabled: true }}
-      initialRouteName="homeTabs">
-      <HomeStackNavigator.Screen name="homeTabs" component={HomeTabs} />
-      <HomeStackNavigator.Screen name="checkout" component={Checkout} />
-      <HomeStackNavigator.Screen name="search" component={SearchPage} />
-      <HomeStackNavigator.Screen name="orders" component={Orders} />
-      <HomeStackNavigator.Screen name="profile" component={ProfilePage} />
-      <HomeStackNavigator.Screen name="receipt" component={CartPage} />
-    </HomeStackNavigator.Navigator>
-  )
-}
- */
-
 const DrawerNavigation = () => {
   const Drawer = createDrawerNavigator()
   return (
@@ -85,6 +69,7 @@ const AuthNavigation = () => {
   const AuthStack = createStackNavigator()
   return (
     <AuthStack.Navigator screenOptions={{ headerShown: false, animationEnabled: true, mode: "modal", }}>
+      <AuthStack.Screen name="welcome" component={Welcome} />
       <AuthStack.Screen name="landing" component={Landing} />
       <AuthStack.Screen name="login" component={Login} />
       <AuthStack.Screen name="signup" component={SignUp} />

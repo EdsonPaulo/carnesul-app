@@ -13,110 +13,18 @@ import {
     TouchableOpacity
 } from 'react-native';
 
-/**
-import Rate, { AndroidMarket } from 'react-native-rate'
-import Share from 'react-native-share';
-*/
+import { onRate, onShare } from '../services/utils'
 
 import { colors, fonts, metrics } from '../constants';
+/*
 
-/** 
-const onShare = () => {
-try {
-    const result = await Share.share({
-        title: 'CarneSul',
-        message: 'Carnesul | Carnes Frescas de Boa Qualidade',
-        url: 'https://deltacorp.co.ao',
-    }, { dialogTitle: 'CarneSul' })
 
-    if (result.action === Share.sharedAction) {
-        if (result.activityType) {
-            // shared with activity type of result.activityType
-        } else {
-            // shared
-        }
-    } else if (result.action === Share.dismissedAction) {
-        // dismissed
-    }
-}
-catch (error) { alert(error.message) }
- 
-const url = 'http://deltacorp.co.ao';
-const title = 'CarneSul';
-const message = 'Compartilhe o carnesul com amigos. Compartilhar é Carinhoso :)';
-const icon = 'data:<data_type>/<file_extension>;base64,<base64_data>';
-const options = Platform.select({
- ios: {
-   activityItemSources: [
-     { // For sharing url with custom title.
-       placeholderItem: { type: 'url', content: url },
-       item: { default: { type: 'url', content: url } },
-       subject: { default: title },
-       linkMetadata: { originalUrl: url, url, title },
-     },
-   /** 
-     { // For sharing text.
-       placeholderItem: { type: 'text', content: message },
-       item: {
-         default: { type: 'text', content: message },
-         message: null, // Specify no text to share via Messages app.
-       },
-       linkMetadata: { // For showing app icon on share preview.
-          title: message
-       },
-     },
-     { // For using custom icon instead of default text icon at share preview when sharing with message.
-       placeholderItem: {
-         type: 'url',
-         content: icon
-       },
-       item: {
-         default: {
-           type: 'text',
-           content: `${message} ${url}`
-         },
-       },
-       linkMetadata: {
-          title: message,
-          icon: icon
-       }
-     },
-   ],
- },
- default: {
-   title,
-   subject: title,
-   message: `${message} ${url}`,
- },
-});
- 
-Share.open(options);
-}
-
-const onRate = async () => {
-const options = {
-    AppleAppID: "2193813192",
-    GooglePackageName: "com.carnesul.deltacorp",
-  //  AmazonPackageName: "com.carnesul.deltacorp",
-   // OtherAndroidURL: "http://www.randomappstore.com/app/47172391",
-    preferredAndroidMarket: AndroidMarket.Google,
-    preferInApp: false,
-    openAppStoreIfInAppFails: true,
-    fallbackPlatformURL: "http://deltacorp.co.ao/",
-}
-Alert.alert(
-    'Avaliar o Carnesul', 'Avalie o aplicativo, comente o que achou e em que podemos melhorar!', [
-    { text: 'Não, Obrigado', style: 'cancel' },
-    {
-        text: 'OK', onPress: () => {
-            Rate.rate(options, success => {
-                if (success) ToastAndroid.show('Obrigado por Avaliar-nos!')
-            })
-        }
-    },
-], { cancelable: true })
-}
+ Condomínio Balumuka, Apto 301 - Talatona 
+ +244 944 280 811 | +244 921 191 285
+ comercial.carnesul@deltacorp.co.ao
 */
+
+
 
 export default SideBar = () => {
 

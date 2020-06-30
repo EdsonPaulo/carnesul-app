@@ -4193,6 +4193,13 @@ react-native-modalize@^2.0.4:
   resolved "https://registry.yarnpkg.com/react-native-modalize/-/react-native-modalize-2.0.4.tgz#0b9d441473baf0243f4fe1c208bd05aac58f05eb"
   integrity sha512-imwMBfvbJdgGqzkfYI4t5jT5nrjXN9c+kEh1iPkEWJE2tz8dpcyWeyniXATmGmsqFkuQJvZY9o5LrYLY8BnduA==
 
+react-native-onboarding-swiper@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-onboarding-swiper/-/react-native-onboarding-swiper-1.1.1.tgz#b604294964f56c0c7e9d0ed7f3dcd2d24880dd92"
+  integrity sha512-u4Y8s5P3B3t/WsSK1AMbBbVqVRnhiEA9yBmRxRhMYb0JVBQ/V2NQBC04RU97qfLWrArWKjRGr8pLN8y5M6f/LQ==
+  dependencies:
+    tinycolor2 "^1.4.1"
+
 react-native-rate@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/react-native-rate/-/react-native-rate-1.2.1.tgz#c7a58b13dc68c49372d706d55a644b3700474597"
@@ -4214,6 +4221,11 @@ react-native-screens@~2.9.0:
   version "2.9.0"
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-2.9.0.tgz#ead2843107ba00fee259aa377582e457c74f1f3b"
   integrity sha512-5MaiUD6HA3nzY3JbVI8l3V7pKedtxQF3d8qktTVI0WmWXTI4QzqOU8r8fPVvfKo3MhOXwhWBjr+kQ7DZaIQQeg==
+
+react-native-share@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/react-native-share/-/react-native-share-3.6.0.tgz#ea5d13de818683bb301475492dad921a64c97b46"
+  integrity sha512-K++I0u67yNqXMaJdDQq8f6cA1Lm0P4WoGIFEiWj+zP1faot9cQk7hCGtQNrEs80TeTHDDCBYpAT5iqZ94nP5Nw==
 
 react-native-swiper@^1.6.0:
   version "1.6.0"
@@ -4901,6 +4913,11 @@ tiny-queue@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/tiny-queue/-/tiny-queue-0.2.1.tgz#25a67f2c6e253b2ca941977b5ef7442ef97a6046"
   integrity sha1-JaZ/LG4lOyypQZd7XvdELvl6YEY=
+
+tinycolor2@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/tinycolor2/-/tinycolor2-1.4.1.tgz#f4fad333447bc0b07d4dc8e9209d8f39a8ac77e8"
+  integrity sha1-9PrTM0R7wLB9TcjpIJ2POaisd+g=
 
 tmp@^0.0.33:
   version "0.0.33"

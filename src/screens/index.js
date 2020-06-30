@@ -1,4 +1,4 @@
-import { Landing, Login, SignUp, Forgot } from './Auth'
+import { Welcome, Landing, Login, SignUp, Forgot } from './Auth'
 import HomePage from './HomePage'
 import CartPage from './CartPage'
 import Wishlist from './Wishlist'
@@ -10,7 +10,7 @@ import SearchPage from './SearchPage'
 import ProductDetails from './ProductDetails'
 
 export { 
-    Landing, Login, SignUp, Forgot,
+    Welcome, Landing, Login, SignUp, Forgot,
     HomePage, CartPage, Wishlist, ProductDetails,
     SearchPage, Category, ProfilePage, Checkout, Orders
 }

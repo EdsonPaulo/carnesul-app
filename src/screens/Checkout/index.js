@@ -138,7 +138,7 @@ const index = () => {
                     )
                 }}
                 avoidKeyboardLikeIOS
-                keyboardAvoidingBehavior='position'
+                keyboardAvoidingBehavior='padding'
                 modalHeight={height - 150}
                 closeOnOverlayTap={false}>
                 <View style={{ padding: 15 }}>
@@ -147,6 +147,12 @@ const index = () => {
                 </View>
 
                 {/**
+                 * <KeyboardAvoidingView style={styles.modalMask} behavior="padding" keyboardVerticalOffset= {-200}>
+                    <View>
+                    Your view
+                    </View>
+                    </KeyboardAvoidingView>
+
                 <GooglePlacesAutocomplete
                     placeholder='Pesquisar endereço'
                     minLength={2} // minimum length of text to search
