@@ -36,13 +36,34 @@ const index = () => {
             "payment_method": "bacs",
             "payment_method_title": "Direct Bank Transfer",
             "set_paid": true,
-            "customer_id":2
+            "customer_id":2,
+            "billing": {
+                "first_name": "John",
+                "last_name": "Doe",
+                "address_1": "969 Market",
+                "address_2": "",
+                "city": "San Francisco",
+                "state": "CA",
+                "postcode": "94103",
+                "country": "US",
+                "email": "john.doe@example.com",
+                "phone": "(555) 555-5555"
+              },
+              "shipping": {
+                "first_name": "John",
+                "last_name": "Doe",
+                "address_1": "969 Market",
+                "address_2": "",
+                "city": "San Francisco",
+                "state": "CA",
+                "postcode": "94103",
+                "country": "US"
+              },
         }
 
         let listItem = [];
         
-        console.log('=====================');
-        cart.map(element => {
+        cart.foreach(element => {
             listItem.push({
                 product_id: element.id,
                 quantity: element.quantity
