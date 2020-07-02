@@ -7,7 +7,10 @@ export default function useDebounce(value, delay) {
     useEffect(
         () => {
             // Set debouncedValue to value (passed in) after the specified delay
-            const handler = setTimeout(() => { setDebouncedValue(value) }, delay)
+            const handler =
+                value.length > 2 ?
+                    setTimeout(() => { setDebouncedValue(value) }, delay)
+                    : null
 
             // Return a cleanup function that will be called every time ...
             // ... useEffect is re-called. useEffect will only be re-called ...

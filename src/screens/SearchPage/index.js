@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import {
-  Text, View, StyleSheet, ScrollView,
-  SafeAreaView, ActivityIndicator,
-  TouchableOpacity, TextInput, Alert
+  Text, View, StyleSheet,
+  SafeAreaView, ActivityIndicator, FlatList,
+  TouchableOpacity, Dimensions
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 //import { SafeAreaView } from "react-native-safe-area-context"
@@ -11,6 +11,7 @@ import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { colors, metrics, general } from "../../constants";
 import HeaderBar from '../../components/HeaderBar';
 import CustomInput from '../../components/CustomInput'
+import ProductItem from '../../components/product/ProductItem'
 import useDebounce from '../../hooks/useDebounce'
 import api from '../../services/api'
 
@@ -27,19 +28,17 @@ export default index = () => {
 
   async function searchProducts() {
     setIsSearching(true)
-    let response = await api.get('/products', { params: { search: debouncedSearchTerm } }).catch(
+    let response = await api.get('/products?search=' + debouncedSearchTerm).catch(
       e => {
-        // Alert.alert('ERRO', ''+e.message)
         // console.log(e + ' ===> erro') 
         setIsSearching(false)
       }
     )
-
+    console.log(response.data)
     if (response?.data) {
       setSearchResult(response.data)
       setIsSearching(false)
-      if (searchResult.length === 0 && searchTerm)
-        setNoResults(true)
+      //  if (searchResult.length === 0 && searchTerm)  setNoResults(true)
     }
   }
 
@@ -49,8 +48,7 @@ export default index = () => {
     else {
       setIsSearching(false)
       setSearchResult([])
-      if (searchTerm)
-        setNoResults(true)
+      if (searchTerm) setNoResults(true)
     }
   }, [debouncedSearchTerm])
 
@@ -59,6 +57,14 @@ export default index = () => {
     isMounted = true
     return () => isMounted = false
   }, [])
+
+  //rederiza o product card ou um espaco com largura equivalente se não tiver produto
+  const renderItem = ({ item }) => {
+    if (item.empty)
+      return <View style={styles.itemInvisible} />
+    else
+      return <ProductItem width={(width / 2 - 20)} {...item} />
+  }
 
   return (
     <SafeAreaView style={general.background}>
@@ -82,20 +88,43 @@ export default index = () => {
               <Text style={{ fontSize: 16 }}>Pesquisando..</Text>
             </View>
             :
-            searchTerm && noResults ?
-              <View style={{ alignItems: 'center' }}>
-                <MaterialCommunityIcons name='file-search-outline' size={80} color={colors.grayDark} />
-                <Text>Nenhum resultado encontrado para "{searchTerm}"</Text>
-              </View>
+            searchTerm.length > 2 && searchResult.length !== 0 ?
+              <FlatList bounces numColumns={numColumns}
+                data={formatData(searchResult, numColumns)}
+                contentContainerStyle={{ paddingVertical: 15 }}
+                renderItem={renderItem}
+                keyExtractor={(item, index) => index.toString()}
+              />
               :
-              <View style={{ alignItems: 'center' }}>
-                <MaterialCommunityIcons name='search-web' size={80} color={colors.primary} />
-                <Text style={{ fontSize: 16 }}>Digite um termo para pesquisar..</Text>
-              </View>
+              searchTerm.length > 2 && searchResult.length === 0 ?
+                <View style={{ alignItems: 'center' }}>
+                  <MaterialCommunityIcons name='file-search-outline' size={80} color={colors.grayDark} />
+                  <Text>Nenhum resultado encontrado para "{searchTerm}"</Text>
+                </View>
+                :
+                <View style={{ alignItems: 'center' }}>
+                  <MaterialCommunityIcons name='search-web' size={80} color={colors.grayDark} />
+                  <Text style={{ fontSize: 16 }}>Digite um termo para pesquisar..</Text>
+                </View>
         }
       </View>
     </SafeAreaView>
   )
+}
+
+
+const { width } = Dimensions.get('window')
+
+const numColumns = 2
+const formatData = (products, numColumns) => {
+  const numberOfFullRows = Math.floor(products.length / numColumns)
+  let numberOfElementsLastRow = products.length - (numberOfFullRows * numColumns)
+
+  while (numberOfElementsLastRow !== numColumns && numberOfElementsLastRow !== 0) {
+    products.push({ key: `blank-${numberOfElementsLastRow}`, empty: true })
+    numberOfElementsLastRow++
+  }
+  return products
 }
 
 const styles = StyleSheet.create({

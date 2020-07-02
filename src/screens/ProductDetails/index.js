@@ -36,14 +36,11 @@ export default index = () => {
     <SafeAreaView style={[general.background, { backgroundColor: 'white' }]}>
       <HeaderBar raised title="Detalhes do Produto" back />
 
-
       <View style={styles.container}>
         <View style={styles.productImageContainer}>
           <PlaceholderImage style={{}} resizeMode="contain"
-            source={(product.images.length > 0) ? { uri: product.images[0].src } : require('../../assets/noimage.png')} />
+            source={(product.images?.length > 0) ? { uri: product.images[0].src } : require('../../assets/noimage.png')} />
         </View>
-
-
 
         <View style={styles.productBody}>
           <View style={styles.productDetails}>
@@ -114,7 +111,7 @@ const styles = StyleSheet.create({
 
 
   productBody: {
-   // backgroundColor: 'white',
+    // backgroundColor: 'white',
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',

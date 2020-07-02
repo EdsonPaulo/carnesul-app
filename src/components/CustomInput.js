@@ -80,7 +80,7 @@ export default CustomInput = props => {
         />
         {
           props.type === 'password' ?
-            <TouchableOpacity onPress={() => setSecureText(!secureText)}>
+            <TouchableOpacity style={{width: 35}} onPress={() => setSecureText(!secureText)}>
               {
                 secureText ?
                   <Feather size={16} name='eye' />

@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, FlatList, ActivityIndicator, Alert } from "react-native";
 
-
-
 import api from '../../services/api';
 import ProductItem from "./ProductItem";
 import { general, colors } from "../../constants";
-
 
 const ProductHorizontalList = () => {
 
@@ -31,7 +28,7 @@ const ProductHorizontalList = () => {
       }
     }
   }
-
+/** 
   const loadFakeProducts = () => {
     if (isMounted) {
       setLoading(true)
@@ -44,14 +41,12 @@ const ProductHorizontalList = () => {
       }, 2000)
     }
   }
-
+*/
 
 
   useEffect(() => {
     isMounted = true
-    //loadProducts()
-    loadFakeProducts()
-
+    loadProducts()
     return () => {
       isMounted = false
     }

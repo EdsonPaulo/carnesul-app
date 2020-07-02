@@ -5,7 +5,7 @@ import { colors } from '../constants';
 
 export default PlaceholderImage = props => {
   
-  const [opacity, setOpacity] = useState(new Animated.Value(0))
+  const [opacity] = useState(new Animated.Value(0))
   const { style } = props
 
   const onLoad = event => {

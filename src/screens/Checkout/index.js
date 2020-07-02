@@ -4,8 +4,7 @@ import { useNavigation, useRoute } from '@react-navigation/native'
 import Icon from '@expo/vector-icons/FontAwesome5'
 import { SafeAreaView } from 'react-native';
 import { Modalize } from 'react-native-modalize'
-
-//import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
 
 import HeaderBar from '../../components/HeaderBar';
 import CustomButton from '../../components/CustomButton'
@@ -126,7 +125,7 @@ const index = () => {
 
             </ScrollView>
 
-            <Modalize ref={modalizeRef}
+            <Modalize ref={modalizeRef}alwaysOpen={20}
                 HeaderComponent={() => {
                     return (
                         <View style={{ height: 100, width: '100%', padding: 15 }}>
@@ -152,25 +151,28 @@ const index = () => {
                     Your view
                     </View>
                     </KeyboardAvoidingView>
+                */}
 
                 <GooglePlacesAutocomplete
-                    placeholder='Pesquisar endereço'
+                    placeholder='Pesquisar Endereço'
                     minLength={2} // minimum length of text to search
-                    autoFocus={false}
-                    returnKeyType={'search'} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
-                    keyboardAppearance={'light'} // Can be left out for default keyboardAppearance https://facebook.github.io/react-native/docs/textinput.html#keyboardappearance
-                    listViewDisplayed='auto'    // true/false/undefined
-                    fetchDetails={true}
-                    renderDescription={row => row.description} // custom description render
+                    autoFocus
+                    
+                    returnKeyType={'search'} 
+                 //   listViewDisplayed='auto'    // true/false/undefined
+                //    fetchDetails
+                   // renderDescription={row => row.description} // custom description render
                     onPress={(data, details = null) => {
                         console.log(data, details);
                         //if(this.props.onLocationPicked)     this.props.onLocationPicked(details)
                     }}
-                    getDefaultValue={() => ''}
+                   // textInp
+                //    getDefaultValue={() => ''}
                     query={{
                         // available options: https://developers.google.com/places/web-service/autocomplete
-                        key: 'YOUR API KEY',
-                        language: 'pt', // language of the results
+                        key: 'AIzaSyA0-NC6ta9wWm_0vdBWYl7Rr6Dhg64q-24',
+                       // language: 'pt', 
+                     //   components: 'country:ao',
                         types: '(cities)' // default: 'geocode'
                     }}
                     styles={{ 
@@ -178,28 +180,21 @@ const index = () => {
                         description: { fontWeight: 'bold' },
                         predefinedPlacesDescription: { color: '#1faadb' }
                     }}
-                    currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
-                    currentLocationLabel="Current location"
+                    currentLocation // Will add a 'Current location' button at the top of the predefined places list
+                    currentLocationLabel="Localização Actual"
                     nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
-                    GoogleReverseGeocodingQuery={{
-                        // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
-                    }}
-                    GooglePlacesSearchQuery={{
-                        // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
-                        rankby: 'distance',
-                        type: 'cafe'
-                    }}
-                    GooglePlacesDetailsQuery={{
-                        // available options for GooglePlacesDetails API : https://developers.google.com/places/web-service/details
-                        fields: 'formatted_address',
-                    }}
-                    filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
+                   // GooglePlacesSearchQuery={{
+                       // rankby: 'distance',
+                       // type: 'cafe'
+                  //  }}
+                 //   GooglePlacesDetailsQuery={{ fields: 'formatted_address', }}
+                 //   filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
                     //predefinedPlaces={[homePlace, workPlace]}
                     debounce={200} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
-                //renderLeftButton={()  => <Image source={require('path/custom/left-icon')} />}
-                //renderRightButton={() => <Text>Custom text after the input</Text>}
+                    enablePoweredByContainer={false}
+                    //renderLeftButton={()  => <Image source={require('path/custom/left-icon')} />}
+                    //renderRightButton={() => <Text>Custom text after the input</Text>}
                 />
-                 */}
             </Modalize>
         </SafeAreaView>
     )

@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useCallback } from 'react'
-import { Text, View, FlatList, Alert, StyleSheet, Dimensions, InteractionManager, ActivityIndicator, TouchableOpacity, ScrollView } from 'react-native'
-import Icon from '@expo/vector-icons/MaterialCommunityIcons'
-import { useNavigation, useFocusEffect, useRoute } from '@react-navigation/native'
+import React, { useEffect, useState } from 'react'
+import { Text, View, FlatList, Alert, StyleSheet, InteractionManager, ActivityIndicator, TouchableOpacity, ScrollView } from 'react-native'
+import { useRoute } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native';
 
 import HeaderBar from '../../components/HeaderBar';
@@ -12,66 +11,39 @@ import api from '../../services/api';
 
 export default index = () => {
 
-    const navigation = useNavigation()
     const route = useRoute()
     const [interactionsComplete, setInteractionsComplete] = useState(false)
-    const [categories, setCategories] = useState([
-        { id: 0, name: 'tudo' },
-        { id: 1, name: 'bovino' },
-        { id: 2, name: 'suino partido' },
-        { id: 3, name: 'caprino' },
-        { id: 4, name: 'ovideo' },
-        { id: 5, name: 'bovino com osso' },
-        { id: 6, name: 'suino' },
-        { id: 7, name: 'caprino' },
-        { id: 8, name: 'ovideo' },
-    ])
-    const [categoryId, setCategoryId] = useState(0)
+    const [categories, setCategories] = useState([{ id: null, name: 'Tudo' }])
+    const [categoryId, setCategoryId] = useState(81)
 
-    let isMounted = false
+    let isMounted = true
 
-    async function loadProductCategories() {
-        const response = await api.get('/products/categories').catch(
-            e => {
-                Alert.alert('ERRO', '' + e.message)
-                console.log(e + ' ===> erro')
-            }
-        )
-        if (isMounted && response)
-            setCategories(response.data);
+    const loadProductCategories = () => {
+        api.get('/products/categories')
+            .then(response => {
+                if (isMounted)
+                    setCategories(response.data.filter(category => category.count > 0))
+            })
+            .catch(err => {
+                console.log(err + ' ===> erro')
+            })
     }
 
     useEffect(() => {
         InteractionManager.runAfterInteractions(() => {
             setInteractionsComplete(true)
-        })
-        return () => { }
-    }, [])
-
-    /**
-    useFocusEffect(
-        useCallback(() => {
-            // console.log(categoryId)
-            //  console.log(route.params)
-            //LER E RENDERIZAR DADOS DA CATEGORIA INFORMADA
-
-        }, [categoryId])
-    )
-     */
-
-    useEffect(() => {
-        setCategoryId(route.params?.categoryId || 0)
-        return () => { }
-    }, [route.params?.categoryId])
-
-
-    useEffect(() => {
-        if (interactionsComplete) {
+        }).then(() => {
             isMounted = true
-            //loadProductCategories()
-        }
+            loadProductCategories()
+        })
         return () => { isMounted = false }
     }, [])
+
+
+    useEffect(() => {
+        setCategoryId(route.params?.categoryId || categoryId)
+        return () => { }
+    }, [route.params?.categoryId])
 
 
     const renderCategoryList = () => {
@@ -80,7 +52,7 @@ export default index = () => {
                 style={[styles.categoryItem, {
                     borderColor: (categoryId === category.id) ? colors.white : 'transparent',
                 }]}>
-                <Text style={styles.categoryItemText}>{category.name}</Text>
+                <Text style={styles.categoryItemText}>{category.name} ({category.count || ' - '})</Text>
             </TouchableOpacity>
         )
         return (
@@ -94,7 +66,6 @@ export default index = () => {
         )
     }
 
-
     if (!interactionsComplete) {
         return (
             <View style={[general.background, { justifyContent: 'center', alignItems: 'center' }]}>
@@ -102,7 +73,6 @@ export default index = () => {
             </View>
         )
     }
-
 
     return (
         <SafeAreaView style={general.background}>
@@ -112,11 +82,8 @@ export default index = () => {
                 {renderCategoryList()}
             </View>
 
-            <View style={{flex: 1}}>
-                {/**
-                  */}
+            <View style={{ flex: 1 }}>
                 <ProductVerticalList category={categoryId} />
-
             </View>
         </SafeAreaView>
     )

@@ -2,16 +2,12 @@ import React, { useState, useEffect, useContext } from 'react'
 import { Text, View, ScrollView, StyleSheet, Alert, TouchableOpacity, ActivityIndicator } from 'react-native'
 import { useNavigation, TabActions } from '@react-navigation/native'
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons'
-
 import { SafeAreaView } from 'react-native';
 
+import { colors, metrics, general, fonts, constants } from '../../constants'
 import ShopContext from '../../context/shop-context'
 import CustomButton from '../../components/CustomButton'
-
-
-import { colors, metrics, general, fonts, constants } from '../../constants'
 import HeaderBar from '../../components/HeaderBar'
-
 
 export default index = () => {
 
@@ -67,16 +63,16 @@ export default index = () => {
                                         </Text>
                                     </View>
                                     <View style={styles.productActionContainer}>
-                                        <TouchableOpacity style={{ width: 40 }} onPress={() => context.removeProductFromCart(item.id)}>
+                                        <TouchableOpacity style={{ width: 35 }} onPress={() => context.removeProductFromCart(item.id)}>
                                             <Ionicons name="ios-close-circle-outline" size={25} color={colors.grayDark2} />
                                         </TouchableOpacity>
                                         <View style={styles.productQuantityContainer}>
-                                            <TouchableOpacity style={{ width: 40 }} onPress={() => context.decrementProductQuantity(item.id)}>
-                                                <Ionicons name="ios-remove-circle" size={30} color={colors.grayDark2} />
+                                            <TouchableOpacity style={{ width: 35 }} onPress={() => context.decrementProductQuantity(item.id)}>
+                                                <Ionicons name="ios-remove-circle" size={25} color={colors.grayDark2} />
                                             </TouchableOpacity>
                                             <Text style={styles.productQuantity}>{item.quantity}</Text>
-                                            <TouchableOpacity style={{ width: 40 }} onPress={() => context.incrementProductQuantity(item.id)}>
-                                                <Ionicons name="ios-add-circle" size={30} color={colors.grayDark2} />
+                                            <TouchableOpacity style={{ width: 35 }} onPress={() => context.incrementProductQuantity(item.id)}>
+                                                <Ionicons name="ios-add-circle" size={25} color={colors.grayDark2} />
                                             </TouchableOpacity>
                                         </View>
                                     </View>
@@ -181,13 +177,13 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         //    backgroundColor: 'gold',
         paddingLeft: metrics.smallMargin,
-        flex: 2.5 / 4
+        flex: 2.7 / 4
     },
     productActionContainer: {
         justifyContent: 'space-between',
         alignItems: 'flex-end',
         // backgroundColor: 'gray',
-        flex: 1.5 / 4
+        flex: 1.3 / 4
     },
     productTitle: {
         fontSize: fonts.input,
@@ -196,7 +192,7 @@ const styles = StyleSheet.create({
 
     },
     productPrice: {
-        fontSize: fonts.input,
+        fontSize: fonts.medium,
         fontWeight: 'bold',
         color: colors.accent
     },
