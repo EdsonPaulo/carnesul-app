@@ -81,7 +81,7 @@ const AuthNavigation = () => {
 
 export default Router = () => {
   //ler token do asyncStorage
-  const token = 'null'
+  const token = null;
   return (
     <NavigationContainer>
       <StatusBar barStyle='light-content' backgroundColor={colors.primaryDark} />

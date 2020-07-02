@@ -12,6 +12,7 @@ import CustomInput from '../../components/CustomInput';
 
 import { colors, metrics, general, constants, fonts } from '../../constants'
 
+import api from '../../services/api';
 
 const { height } = Dimensions.get('window')
 
@@ -29,6 +30,34 @@ const index = () => {
 
     const modalizeRef = useRef(null)
     const onOpen = () => modalizeRef.current?.open()
+
+    const finalizar = ()=>{
+        const data = {
+            "payment_method": "bacs",
+            "payment_method_title": "Direct Bank Transfer",
+            "set_paid": true,
+            "customer_id":2
+        }
+
+        let listItem = [];
+        
+        console.log('=====================');
+        cart.map(element => {
+            listItem.push({
+                product_id: element.id,
+                quantity: element.quantity
+            })
+        });
+
+       
+        data.line_items = listItem;
+
+        api.post('orders', data).then(response =>{
+            console.log(response.data);
+        }).catch(response => {
+            console.log(response);
+        })
+    }
 
     return (
         <SafeAreaView style={general.background}>
@@ -121,7 +150,10 @@ const index = () => {
                     </View>
                 </View>
 
-                <CustomButton primary title="Finalizar Compra" style={{ margin: 15 }} onPress={() => { }} />
+                <CustomButton primary title="Finalizar Compra" style={{ margin: 15 }} onPress={() => {
+                   finalizar();
+                   
+                 }} />
 
             </ScrollView>
 
