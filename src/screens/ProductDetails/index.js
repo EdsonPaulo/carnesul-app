@@ -9,7 +9,7 @@ import { colors, metrics, general, fonts } from "../../constants"
 import CustomButton from '../../components/CustomButton'
 import HeaderBar from "../../components/HeaderBar"
 import PlaceholderImage from '../../components/PlaceholderImage'
-import ShopContext from '../../context/shop-context';
+import ShopContext from '../../contexts/shop/shop-context';
 
 
 export default index = () => {

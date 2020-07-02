@@ -5,7 +5,7 @@ import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons'
 import { SafeAreaView } from 'react-native';
 
 import { colors, metrics, general, fonts, constants } from '../../constants'
-import ShopContext from '../../context/shop-context'
+import ShopContext from '../../contexts/shop/shop-context'
 import CustomButton from '../../components/CustomButton'
 import HeaderBar from '../../components/HeaderBar'
 

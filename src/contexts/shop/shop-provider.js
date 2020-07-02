@@ -1,9 +1,9 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useMemo} from 'react';
 
 import ShopContext from './shop-context';
-import { shopReducer, ADD_PRODUCT, REMOVE_PRODUCT, INCREMENT_QUANTITY, DECREMENT_QUANTITY } from './reducers';
+import { shopReducer, ADD_PRODUCT, REMOVE_PRODUCT, INCREMENT_QUANTITY, DECREMENT_QUANTITY } from './shop-reducer';
 
-const GlobalState = props => {
+const ShopProvider = props => {
 
   const [cartState, dispatch] = useReducer(shopReducer, { cart: [] })
 
@@ -23,18 +23,21 @@ const GlobalState = props => {
     dispatch({ type: DECREMENT_QUANTITY, productId: productId })
   }
 
+  const value = useMemo(() => {
+    return { 
+      cart: cartState.cart,
+      addProductToCart: addProductToCart,
+      removeProductFromCart: removeProductFromCart,
+      incrementProductQuantity: incrementProductQuantity,
+      decrementProductQuantity: decrementProductQuantity
+    }
+  }, [cartState])
+
   return (
-    <ShopContext.Provider
-      value={{
-        cart: cartState.cart,
-        addProductToCart: addProductToCart,
-        removeProductFromCart: removeProductFromCart,
-        incrementProductQuantity: incrementProductQuantity,
-        decrementProductQuantity: decrementProductQuantity
-      }}>
+    <ShopContext.Provider value={value}>
       {props.children}
     </ShopContext.Provider>
   )
 }
 
-export default GlobalState;
+export default ShopProvider;

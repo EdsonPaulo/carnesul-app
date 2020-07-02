@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from "@react-navigation/stack"
 import { createDrawerNavigator } from "@react-navigation/drawer"
@@ -7,7 +7,6 @@ import { StatusBar } from 'react-native'
 import { colors } from '../constants'
 import HomeTabBar from '../components/HomeTabBar'
 import SideBar from '../components/SideBar'
-
 import {
   Welcome,
   Landing,
@@ -25,6 +24,10 @@ import {
   ProductDetails
 } from '../screens'
 
+import AuthContext from '../contexts/auth/auth-context'
+
+import AuthProvider from '../contexts/auth/auth-provider';
+import ShopProvider from '../contexts/shop/shop-provider';
 
 const HomeTabs = () => {
   const Tabs = createBottomTabNavigator()
@@ -39,7 +42,6 @@ const HomeTabs = () => {
     </Tabs.Navigator>
   )
 }
-
 
 const DrawerNavigation = () => {
   const Drawer = createDrawerNavigator()
@@ -80,17 +82,21 @@ const AuthNavigation = () => {
 
 
 export default Router = () => {
-  //ler token do asyncStorage
-  const token = 'null'
+  const authContext = useContext(AuthContext)
   return (
     <NavigationContainer>
       <StatusBar barStyle='light-content' backgroundColor={colors.primaryDark} />
-      {
-        !token ?
-          <AuthNavigation />
-          :
-          <MainNavigation />
-      }
+      <AuthProvider>
+        {
+          !authContext.isLogged ?
+            <AuthNavigation />
+            :
+            <ShopProvider>
+              <MainNavigation />
+            </ShopProvider>
+        }
+      </AuthProvider>
+
 
     </NavigationContainer>
   )

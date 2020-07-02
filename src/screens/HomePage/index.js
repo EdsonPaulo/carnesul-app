@@ -19,7 +19,7 @@ import {
 import Icon from '@expo/vector-icons'
 
 import { colors, metrics, general, fonts, constants } from '../../constants'
-import ShopContext from '../../context/shop-context'
+import ShopContext from '../../contexts/shop/shop-context'
 
 import ProductHorizontalList from '../../components/product/ProductHorizontalList'
 import SwiperCards from '../../components/SwiperCards'
@@ -86,7 +86,7 @@ const index = () => {
 
                     <View style={[styles.sectionTopContainer, { marginVertical: 0 }]}>
                         <TouchableOpacity style={styles.categoryContainer}
-                            onPress={() => navigation.navigate('category', { categoryId: 1 })}>
+                            onPress={() => navigation.navigate('category', { categoryId: 81 })}>
                             <Image resizeMode="cover" source={require('../../assets/icons/categoria1.png')} />
                             <Text style={styles.categoryTitle}>Bovino</Text>
                         </TouchableOpacity>
@@ -213,12 +213,12 @@ const styles = StyleSheet.create({
     categoryContainer: {
         justifyContent: 'center',
         alignItems: 'center',
-        width: 85,
-        height: 85,
+        width: 65,
+        height: 65,
     },
     category: {
-        width: 80,
-        height: 80,
+        width: 60,
+        height: 60,
     },
     categoryTitle: {
         textAlign: 'center',

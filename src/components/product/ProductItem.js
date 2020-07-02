@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 
 import { colors, metrics, fonts, general } from '../../constants';
-import ShopContext from '../../context/shop-context';
+import ShopContext from '../../contexts/shop/shop-context';
 import PlaceholderImage from '../PlaceholderImage';
 
 const ProductItem = props => {

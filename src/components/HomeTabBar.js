@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
 import { colors, metrics, fonts } from '../constants';
-import ShopContext from '../context/shop-context'
+import ShopContext from '../contexts/shop/shop-context'
 
 const HomeTabBar = ({ state, descriptors, navigation }) => (
 

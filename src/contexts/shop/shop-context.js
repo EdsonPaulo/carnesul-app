@@ -6,4 +6,4 @@ export default React.createContext({
   removeProductFromCart: productId => {},
   incrementProductQuantity: productId => {},
   decrementProductQuantity: productId => {}
-});
+})
