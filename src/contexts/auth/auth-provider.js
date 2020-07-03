@@ -11,10 +11,22 @@ const AuthProvider = props => {
   const initialAuthState = {
     user: null,
     token: null,
-    isLogged: false
+    isLogged:  true
   }
 
   const [authState, dispatch] = useReducer(authReducer, { initialAuthState })
+
+  const checkLoggedState = async () => {
+    try {
+      const token = await AsyncStorage.getItem(constants.TOKEN_KEY)
+      console.log('esta logado?: ' + !!token)
+      if (token)
+        return true
+      return false
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
 
 
   const login = async (user, token) => {
@@ -24,7 +36,7 @@ const AuthProvider = props => {
         [constants.USER_KEY, JSON.stringify(user)],
         [constants.TOKEN_KEY, token]
       ])
-      console.log('logou: '+ initialAuthState.isLogged)
+      console.log('logou: ' + initialAuthState.isLogged)
       //AXIOS AUTHORIZATION HEADER
       //    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
       //DISPATCH TO REDUCER

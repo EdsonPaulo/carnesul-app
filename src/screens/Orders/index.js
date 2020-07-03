@@ -1,59 +1,129 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, SafeAreaView, ScrollView, FlatList } from 'react-native'
+import { Text, View, SafeAreaView, FlatList, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native'
 import api from '../../services/api';
 //import { SafeAreaView  } from 'react-native-safe-area-context'
 
 import { colors, metrics, general } from '../../constants'
 import HeaderBar from '../../components/HeaderBar'
+import { useNavigation } from '@react-navigation/native';
 
 export default index = () => {
 
+  let isMounted = true
   const [orders, setOrders] = useState([])
+  const [loading, setLoading] = useState(true)
+  const navigation = useNavigation()
 
-  const use_id = 2;
+  const user_id = 2;
 
-  useEffect(()=>{
-    api.get(`orders?customer=${use_id}`)
-    .then(response => {
-      setOrders(response.data);
-    })
-    .catch(response => {
-      console.log(response);
-    });
-  },[]);
- 
+  const getOrders = () => {
+    api.get(`orders?customer=${user_id}`)
+      .then(response => {
+        if (isMounted) {
+          setOrders(response.data)
+          setLoading(false)
+        }
+      })
+      .catch(error => {
+        console.error(error)
+        if (isMounted)
+          setLoading(false)
+      })
+  }
 
-function Item({ title }) {
-  return (
-    <View style={{flexDirection:'row', justifyContent:'space-around'}}>
-      <Text>{title.number}</Text>
-      <Text>{title.total} {title.currency}</Text>
-      <Text>{title.status}</Text>
-    </View>
-  );
-}
+  useEffect(() => {
+    isMounted = true
+    getOrders()
+    return () => isMounted = false
+  }, [])
+
+  const convertDate = date => Intl.DateTimeFormat('pt-AO').format(new Date(date))
+
+  const Order = ({ order }) => (
+    <TouchableOpacity style={styles.orderContainer} onPress={() => navigation.navigate('order', {order: order})}>
+      <View style={styles.rowContainer}>
+        <Text style={{}}>#{order.number}</Text>
+        <Text style={{ fontWeight: 'bold', fontSize: 16 }}>
+          {Intl.NumberFormat('pt-AO', { style: 'currency', currency: 'AOA' }).format(order.total)}
+        </Text>
+      </View>
+
+      <View style={styles.rowContainer}>
+        <Text style={[styles.statusText, {
+          backgroundColor: order.status === 'processing' ? 'lightgreen'
+            : order.status === 'canceled' ? colors.alert : colors.grayLight
+        }]}>
+          {order.status}
+        </Text>
+
+        <Text>{convertDate(order.date_completed)}</Text>
+      </View>
+    </TouchableOpacity>
+  )
+
+  const renderOrdersList = () => (
+    <FlatList contentContainerStyle={{ padding: metrics.baseMargin }}
+      data={orders}
+      renderItem={({ item }) => <Order order={item} />}
+      keyExtractor={item => item.id}
+    />
+  )
+
   const renderEmptyOrders = () => (
-    <View style={{ marginHorizontal: 20, flex: 1, justifyContent: 'center' }}>
-      <Text style={{ textAlign: 'center', fontSize: 22, color: colors.grayDark }}>Nenhuma compra efectuada!</Text>
+    <View style={styles.container}>
+      <Text style={{ textAlign: 'center', fontSize: 22, color: colors.grayDark }}>Sem pedidos registado!</Text>
     </View>
   )
 
-  
-  
+  const renderLoading = () => (
+    <View style={styles.container}>
+      <ActivityIndicator size="large" color={colors.primaryDark} />
+    </View>
+  )
+
   return (
     <SafeAreaView style={general.background}>
-      <HeaderBar raised title="Histórico de Compras" back />
-      <ScrollView showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ flex: 1, padding: 15 }}>
-       
-       <FlatList
-        data={orders}
-        renderItem={({ item }) => <Item title={item} />}
-        keyExtractor={item => item.id}
-      />
-
-      </ScrollView>
-
+      <HeaderBar raised title="Meus Pedidos" back />
+      <View style={{ flex: 1 }}>
+        {
+          loading ? renderLoading() :
+            orders.length > 0 ? renderOrdersList() : renderEmptyOrders()
+        }
+      </View>
     </SafeAreaView>
   )
 }
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  orderContainer: {
+    flex: 1,
+    height: 75,
+    paddingVertical: metrics.baseMargin,
+    paddingHorizontal: metrics.doubleBaseMargin,
+    backgroundColor: 'white',
+    borderWidth: 1,
+    elevation: 1,
+    borderRadius: metrics.baseRadius,
+    borderColor: colors.grayLight,
+    marginVertical: metrics.smallMargin
+  },
+  rowContainer: {
+    flex: 1 / 2,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  statusText: {
+    fontWeight: 'bold',
+    paddingHorizontal: 8,
+    paddingVertical: 1,
+    borderRadius: 6,
+    textTransform: 'capitalize',
+  }
+})

@@ -21,7 +21,8 @@ import {
   SearchPage,
   Orders,
   Checkout,
-  ProductDetails
+  ProductDetails,
+  OrderDetails
 } from '../screens'
 
 import AuthContext from '../contexts/auth/auth-context'
@@ -60,6 +61,7 @@ const MainNavigation = () => {
       <MainStack.Screen name="checkout" component={Checkout} />
       <MainStack.Screen name="product" component={ProductDetails} />
       <MainStack.Screen name="orders" component={Orders} />
+      <MainStack.Screen name="order" component={OrderDetails} />
       <MainStack.Screen name="profile" component={ProfilePage} />
       <MainStack.Screen name="search" component={SearchPage} />
       <MainStack.Screen name="receipt" component={CartPage} />

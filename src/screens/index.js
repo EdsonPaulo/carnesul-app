@@ -8,9 +8,10 @@ import ProfilePage from './ProfilePage'
 import Category from './Category'
 import SearchPage from './SearchPage'
 import ProductDetails from './ProductDetails'
+import OrderDetails from './OrderDetails'
 
 export { 
     Welcome, Landing, Login, SignUp, Forgot,
-    HomePage, CartPage, Wishlist, ProductDetails,
+    HomePage, CartPage, Wishlist, ProductDetails, OrderDetails,
     SearchPage, Category, ProfilePage, Checkout, Orders
 }

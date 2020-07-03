@@ -3,7 +3,7 @@ import React from 'react';
 export default React.createContext({
   user: {},
   token: '',
-  isLogged: false,
+  isLogged: true,
   login: (user, token) => { },
   logout: () => { },
   retrieveToken: token => { },
