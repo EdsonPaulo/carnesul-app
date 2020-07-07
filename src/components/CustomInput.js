@@ -71,7 +71,6 @@ export default CustomInput = props => {
           style={inputStyle}
           placeholderTextColor={colors.grayDark}
           keyboardType={inputType}
-          autoCorrect={false}
           secureTextEntry={secureText}
           //onChangeText={value => props.onChange(value)}
           onChange={props.onChangeNative}

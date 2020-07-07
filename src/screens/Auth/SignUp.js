@@ -1,5 +1,5 @@
 import React, { } from 'react'
-import { Text, View, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
+import { Text, View, KeyboardAvoidingView, TouchableOpacity, Platform } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import Icon from '@expo/vector-icons/Feather'
 
@@ -13,7 +13,7 @@ const SignUp = () => {
     const navigation = useNavigation()
 
     return (
-        <KeyboardAvoidingView style={styles.background}>
+        <KeyboardAvoidingView style={styles.background} behavior={Platform.OS == "ios" ? "padding" : "height"}>
             <TouchableOpacity onPress={() => navigation.goBack()}>
                 <Icon style={styles.iconHeader} name='chevron-left' />
             </TouchableOpacity>

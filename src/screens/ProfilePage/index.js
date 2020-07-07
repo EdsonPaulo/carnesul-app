@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, SafeAreaView, ScrollView, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
+import { Text, View, ScrollView, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-//import { SafeAreaView } from "react-native-safe-area-context"
+import { SafeAreaView } from "react-native-safe-area-context"
 import { Ionicons, Feather } from '@expo/vector-icons'
 
 import HeaderBar from '../../components/HeaderBar'

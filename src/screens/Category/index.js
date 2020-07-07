@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Text, View, FlatList, Alert, StyleSheet, InteractionManager, ActivityIndicator, TouchableOpacity, ScrollView } from 'react-native'
 import { useRoute } from '@react-navigation/native'
-import { SafeAreaView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 import HeaderBar from '../../components/HeaderBar';
 import ProductVerticalList from '../../components/product/ProductVerticalList'
@@ -52,7 +52,7 @@ export default index = () => {
                 style={[styles.categoryItem, {
                     borderColor: (categoryId === category.id) ? colors.white : 'transparent',
                 }]}>
-                <Text style={styles.categoryItemText}>{category.name} ({category.count || ' - '})</Text>
+                <Text style={styles.categoryItemText}>{category.name} ({category.count || 0})</Text>
             </TouchableOpacity>
         )
         return (
@@ -77,11 +77,12 @@ export default index = () => {
     return (
         <SafeAreaView style={general.background}>
             <HeaderBar title="Categorias" />
-
-            <View style={styles.categoryListContainer}>
-                {renderCategoryList()}
-            </View>
-
+            {
+                //categories.length <= 1 ? null :
+                    <View style={styles.categoryListContainer}>
+                        {renderCategoryList()}
+                    </View>
+            }
             <View style={{ flex: 1 }}>
                 <ProductVerticalList category={categoryId} />
             </View>

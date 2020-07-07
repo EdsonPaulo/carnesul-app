@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import {
   Text, View, StyleSheet,
-  SafeAreaView, ActivityIndicator, FlatList,
+  ActivityIndicator, FlatList,
   TouchableOpacity, Dimensions
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-//import { SafeAreaView } from "react-native-safe-area-context"
+import { SafeAreaView } from "react-native-safe-area-context"
 
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { colors, metrics, general } from "../../constants";
-import HeaderBar from '../../components/HeaderBar';
 import CustomInput from '../../components/CustomInput'
 import ProductItem from '../../components/product/ProductItem'
 import useDebounce from '../../hooks/useDebounce'
@@ -96,7 +95,7 @@ export default index = () => {
                 keyExtractor={(item, index) => index.toString()}
               />
               :
-              searchTerm.length > 2 && searchResult.length === 0 ?
+              debouncedSearchTerm.length > 2 && searchResult.length === 0 ?
                 <View style={{ alignItems: 'center' }}>
                   <MaterialCommunityIcons name='file-search-outline' size={80} color={colors.grayDark} />
                   <Text>Nenhum resultado encontrado para "{searchTerm}"</Text>

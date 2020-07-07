@@ -4,7 +4,7 @@ const fonts = {
     input: 16,
     regular: 14,
     medium: 12,
-    small: 11,
+    small: 10,
     tiny: 10,
 };
  

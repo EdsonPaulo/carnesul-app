@@ -7,6 +7,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 
+import Shimmer from '../Shimmer'
 import { colors, metrics, fonts, general } from '../../constants';
 import ShopContext from '../../contexts/shop/shop-context';
 import PlaceholderImage from '../PlaceholderImage';
@@ -20,7 +21,7 @@ const ProductItem = props => {
     const containerWidth = width || 160
 
     return (
-        <TouchableOpacity activeScale={0.9} style={[general.card, styles.container, { width: containerWidth }]}
+        <TouchableOpacity activeScale={0.7} style={[general.card, styles.container, { width: containerWidth, maxWidth: 200}]}
             onPress={() => navigation.navigate('product', { product: item })}>
             <View style={styles.topContainer}>
                 <Text style={styles.iconQuantity}>{item.weight || 0} KG</Text>

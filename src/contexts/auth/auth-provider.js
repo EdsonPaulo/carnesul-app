@@ -75,6 +75,7 @@ const AuthProvider = props => {
       isLogged: authState.isLogged,
       token: authState.token,
       user: authState.user,
+      checkLoggedState: checkLoggedState,
       login: login,
       logout: logout,
       retrieveToken: retrieveToken,

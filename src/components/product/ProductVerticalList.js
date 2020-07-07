@@ -13,7 +13,7 @@ const ProductVerticalList = listParams => {
   let isMounted = true
   const [products, setProducts] = useState([])
   const [total, setTotal] = useState(0)
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(2)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
 
@@ -34,24 +34,18 @@ const ProductVerticalList = listParams => {
   const loadProducts = () => {
 
     if (isMounted) {
-      setProducts([])
-      setPage(1)
-      setTotal(0)
       setLoading(true)
+      setProducts([])
+      setPage(2)
+      setTotal(0)
     }
-    console.log('pagina inicial: ' + page)
-    console.log('totalProducts inicial: ' + products.length)
 
     api.get(`/products?category=${listParams.category || ''}`)
       .then(response => {
         //if (isMounted){ }
-        console.log(' total: ' + response.headers['x-wp-total'] +
-          ' totalProducts: ' + products.length +
-          ' Pagina: ' + page + ' Categoria: ' + listParams.category
-        )
+        setError(false)
         setProducts(response.data)
         setTotal(response.headers['x-wp-total'])
-        setError(false)
       })
       .catch(err => {
         console.log(e + ' ===> erro')
@@ -62,31 +56,26 @@ const ProductVerticalList = listParams => {
       })
   }
 
+
+  //carregar mais produtos ao chegar no meio da lista
   const loadMoreProducts = () => {
 
     if (loading) return
+
+    if (total > 0 && products.length >= total) return
     
-    if (total > 0 && products.length >= total) {
-      console.log('carregados todos os produtos ' + products.length)
-      return
-    }
 
     if (products.length < total) {
       setLoading(true)
       const paramPage = '&page=' + page
-      const paramCategory = 'category=' + listParams.category || '81'
-      console.log('filtrar por ' + paramCategory + paramPage)
+      const paramCategory = 'category=' + listParams.category || ''
+      //console.log('filtrar por ' + paramCategory + paramPage)
 
       api.get('/products?' + paramCategory + paramPage)
         .then(response => {
           //if (isMounted){ }
-          console.log(' total: ' + response.headers['x-wp-total'] +
-            ' totalProducts: ' + products.length +
-            ' Pagina: ' + page + ' Categoria: ' + listParams.category
-          )
           setError(false)
           setProducts([...products, ...response.data])
-          setTotal(response.headers['x-wp-total'])
           setPage(page + 1)
         })
         .catch(err => {
@@ -127,6 +116,7 @@ const ProductVerticalList = listParams => {
       />
     )
   }
+
   if (products.length === 0) {
     if (loading)
       return (

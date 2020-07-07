@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from "@react-navigation/stack"
 import { createDrawerNavigator } from "@react-navigation/drawer"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import { StatusBar } from 'react-native'
+import { StatusBar, Text } from 'react-native'
 import { colors } from '../constants'
 import HomeTabBar from '../components/HomeTabBar'
 import SideBar from '../components/SideBar'
@@ -20,6 +20,7 @@ import {
   ProfilePage,
   SearchPage,
   Orders,
+  AddressPage,
   Checkout,
   ProductDetails,
   OrderDetails
@@ -56,9 +57,10 @@ const DrawerNavigation = () => {
 const MainNavigation = () => {
   const MainStack = createStackNavigator()
   return (
-    <MainStack.Navigator screenOptions={{ headerShown: false, animationEnabled: true }} initialRouteName="drawer" >
+    <MainStack.Navigator initialRouteName="drawer" screenOptions={{headerShown: false}}>
       <MainStack.Screen name="drawer" component={DrawerNavigation} />
       <MainStack.Screen name="checkout" component={Checkout} />
+      <MainStack.Screen name="address" component={AddressPage} />
       <MainStack.Screen name="product" component={ProductDetails} />
       <MainStack.Screen name="orders" component={Orders} />
       <MainStack.Screen name="order" component={OrderDetails} />
@@ -72,7 +74,7 @@ const MainNavigation = () => {
 const AuthNavigation = () => {
   const AuthStack = createStackNavigator()
   return (
-    <AuthStack.Navigator screenOptions={{ headerShown: false, animationEnabled: true, mode: "modal", }}>
+    <AuthStack.Navigator screenOptions={{ headerShown: false, mode: "modal", }}>
       <AuthStack.Screen name="welcome" component={Welcome} />
       <AuthStack.Screen name="landing" component={Landing} />
       <AuthStack.Screen name="login" component={Login} />
@@ -90,7 +92,7 @@ export default Router = () => {
       <StatusBar barStyle='light-content' backgroundColor={colors.primaryDark} />
       <AuthProvider>
         {
-          !authContext.isLogged ?
+          !authContext.checkLoggedState ?
             <AuthNavigation />
             :
             <ShopProvider>

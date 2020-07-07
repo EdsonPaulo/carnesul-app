@@ -4,8 +4,9 @@ export default React.createContext({
   user: {},
   token: '',
   isLogged: true,
+  checkLoggedState: () => { },
   login: (user, token) => { },
-  logout: () => { },
+  logout: () => {},
   retrieveToken: token => { },
   register: (user, token) => { }
 })

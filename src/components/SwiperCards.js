@@ -7,12 +7,11 @@ const { width } = Dimensions.get('window')
 const SwiperCards = ({  }) => {
     return (
         <View style={styles.container}>
-            <Swiper style={styles.wrapper} height={200} dotColor={colors.grayLight} activeDotColor={colors.accent} autoplay>
-                <Image style={styles.slide} resizeMode="cover" source={require("../assets/banners/banner1.jpg")} />
-                <Image style={styles.slide} resizeMode="cover" source={require("../assets/banners/banner2.jpg")} />
-                <Image style={styles.slide} resizeMode="cover" source={require("../assets/banners/banner3.jpg")} />
-                <Image style={styles.slide} resizeMode="cover" source={require("../assets/banners/banner4.jpg")} />
-                <Image style={styles.slide} resizeMode="cover" source={require("../assets/banners/banner5.jpg")} />
+            <Swiper style={styles.wrapper} height={190} dotColor={colors.grayLight} activeDotColor={colors.accent} autoplay>
+                <Image style={styles.slide} resizeMode="stretch" source={require("../assets/banners/banner1.jpg")} />
+                <Image style={styles.slide} resizeMode="stretch" source={require("../assets/banners/banner2.jpg")} />
+                <Image style={styles.slide} resizeMode="stretch" source={require("../assets/banners/banner3.jpg")} />
+                <Image style={styles.slide} resizeMode="stretch" source={require("../assets/banners/banner4.jpg")} />
             </Swiper>
         </View>
     )

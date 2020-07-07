@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { Text, View, Image, StatusBar, TouchableOpacity } from 'react-native'
+import React, { useContext, useEffect } from 'react'
+import { Text, View, Image, StatusBar, TouchableOpacity, ImageBackground } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
 import styles from './styles'
@@ -23,11 +23,13 @@ const Landing = () => {
         authContext.login(user, token)
     }
 
+  
+
     return (
         <View style={[styles.background, { padding: 0 }]}>
             <View style={{ flex: 2 / 3, justifyContent: 'flex-end', alignItems: "center", elevation: 15, }}>
                 <View style={{ width: '100%', height: '100%' }}>
-                    <Image source={require('../../assets/landing1.jpg')} resizeMode="cover"
+                    <ImageBackground source={require('../../assets/landing1.jpg')} resizeMode="cover"
                         style={{ width: '100%', height: '100%' }} />
                 </View>
 

@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Text, View, StyleSheet, Image, ScrollView, ActivityIndicator, TouchableOpacity } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { SafeAreaView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 import Icon from '@expo/vector-icons/Ionicons'
 
@@ -38,7 +38,7 @@ export default index = () => {
 
       <View style={styles.container}>
         <View style={styles.productImageContainer}>
-          <PlaceholderImage style={{}} resizeMode="contain"
+          <PlaceholderImage resizeMode="contain"
             source={(product.images?.length > 0) ? { uri: product.images[0].src } : require('../../assets/noimage.png')} />
         </View>
 

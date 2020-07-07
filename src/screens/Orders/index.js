@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, SafeAreaView, FlatList, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native'
+import { Text, View, FlatList, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native'
 import api from '../../services/api';
-//import { SafeAreaView  } from 'react-native-safe-area-context'
+import { SafeAreaView  } from 'react-native-safe-area-context'
 
 import { colors, metrics, general } from '../../constants'
 import HeaderBar from '../../components/HeaderBar'
@@ -40,7 +40,7 @@ export default index = () => {
   const convertDate = date => Intl.DateTimeFormat('pt-AO').format(new Date(date))
 
   const Order = ({ order }) => (
-    <TouchableOpacity style={styles.orderContainer} onPress={() => navigation.navigate('order', {order: order})}>
+    <TouchableOpacity style={styles.orderContainer} onPress={() => navigation.navigate('order', { order: order })}>
       <View style={styles.rowContainer}>
         <Text style={{}}>#{order.number}</Text>
         <Text style={{ fontWeight: 'bold', fontSize: 16 }}>
@@ -56,7 +56,7 @@ export default index = () => {
           {order.status}
         </Text>
 
-        <Text>{convertDate(order.date_completed)}</Text>
+        <Text>{convertDate(order.date_created)}</Text>
       </View>
     </TouchableOpacity>
   )
@@ -71,7 +71,7 @@ export default index = () => {
 
   const renderEmptyOrders = () => (
     <View style={styles.container}>
-      <Text style={{ textAlign: 'center', fontSize: 22, color: colors.grayDark }}>Sem pedidos registado!</Text>
+      <Text style={{ textAlign: 'center', fontSize: 22, color: colors.grayDark }}>Sem pedidos registados!</Text>
     </View>
   )
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import { Text, View, ScrollView, StyleSheet, Alert, TouchableOpacity, ActivityIndicator } from 'react-native'
 import { useNavigation, TabActions } from '@react-navigation/native'
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons'
-import { SafeAreaView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { colors, metrics, general, fonts, constants } from '../../constants'
 import ShopContext from '../../contexts/shop/shop-context'
@@ -48,39 +48,40 @@ export default index = () => {
                         context.cart.map((item, i) => {
 
                             let quantity = item.quantity
-                            
-                            return(
-                            <View style={styles.productContainer} key={i}>
-                                <View style={styles.productImage}>
-                                    <PlaceholderImage style={styles.productImage}
-                                        source={(item.images?.length > 0) ? { uri: item.images[0].src } : require('../../assets/noimage.png')} />
-                                </View>
-                                <View style={styles.productInfoContainer}>
-                                    <View style={styles.productTextContainer}>
-                                        <Text style={styles.productTitle}>{item.name}</Text>
-                                        <Text style={styles.productPrice}>
-                                            { transformPrice(item.price) }
-                                        </Text>
+
+                            return (
+                                <View style={styles.productContainer} key={i}>
+                                    <View style={styles.productImage}>
+                                        <PlaceholderImage style={styles.productImage}
+                                            source={(item.images?.length > 0) ? { uri: item.images[0].src } : require('../../assets/noimage.png')} />
                                     </View>
-                                    <View style={styles.productActionContainer}>
-                                        <TouchableOpacity style={{ width: 35 }} onPress={() => context.removeProductFromCart(item.id)}>
-                                            <Ionicons name="ios-close-circle-outline" size={25} color={colors.grayDark2} />
-                                        </TouchableOpacity>
-                                        <View style={styles.productQuantityContainer}>
-                                            <TouchableOpacity style={{ width: 35 }} onPress={() => context.decrementProductQuantity(item.id)}>
-                                                <Ionicons name="ios-remove-circle" size={25} color={colors.grayDark2} />
+                                    <View style={styles.productInfoContainer}>
+                                        <View style={styles.productTextContainer}>
+                                            <Text style={styles.productTitle}>{item.name}</Text>
+                                            <Text style={styles.productPrice}>
+                                                {transformPrice(item.price)}
+                                            </Text>
+                                        </View>
+                                        <View style={styles.productActionContainer}>
+                                            <TouchableOpacity style={{ width: 35 }} onPress={() => context.removeProductFromCart(item.id)}>
+                                                <Ionicons name="ios-close-circle-outline" size={25} color={colors.grayDark2} />
                                             </TouchableOpacity>
-                                            <Text style={styles.productQuantity}>{item.quantity}</Text>
-                                            <TouchableOpacity style={{ width: 35 }} onPress={() => context.incrementProductQuantity(item.id)}>
-                                                <Ionicons name="ios-add-circle" size={25} color={colors.grayDark2} />
-                                            </TouchableOpacity>
+                                            <View style={styles.productQuantityContainer}>
+                                                <TouchableOpacity style={{ width: 35 }} onPress={() => context.decrementProductQuantity(item.id)}>
+                                                    <Ionicons name="ios-remove-circle" size={25} color={colors.grayDark2} />
+                                                </TouchableOpacity>
+                                                <Text style={styles.productQuantity}>{item.quantity}</Text>
+                                                <TouchableOpacity style={{ width: 35 }} onPress={() => context.incrementProductQuantity(item.id)}>
+                                                    <Ionicons name="ios-add-circle" size={25} color={colors.grayDark2} />
+                                                </TouchableOpacity>
+                                            </View>
                                         </View>
                                     </View>
                                 </View>
-                            </View>
-                        
 
-                        )})
+
+                            )
+                        })
                     }
                 </ScrollView>
             </View>
@@ -88,22 +89,22 @@ export default index = () => {
                 <View style={styles.checkoutRow}>
                     <Text style={styles.checkoutDetailsText}>Subtotal </Text>
                     <Text style={styles.checkoutDetailsText}>
-                        { transformPrice(subtotal) }
+                        {transformPrice(subtotal)}
                     </Text>
                 </View>
                 <View style={styles.checkoutRow}>
                     <Text style={styles.checkoutDetailsText}>Taxa de Entrega </Text>
                     <Text style={styles.checkoutDetailsText}>
-                        { transformPrice(tax) }
+                        {transformPrice(tax)}
                     </Text>
                 </View>
                 <View style={styles.checkoutRow}>
                     <Text style={styles.totalText}>Total </Text>
                     <Text style={styles.totalText}>
-                        { transformPrice(subtotal + tax) }
+                        {transformPrice(subtotal + tax)}
                     </Text>
                 </View>
-                <CustomButton primary title="Realizar Compra" onPress={() => navigation.navigate('checkout', { cart: context.cart, subtotal: subtotal })} />
+                <CustomButton primary title="Fazer Pedido" onPress={() => navigation.navigate('checkout', { cart: context.cart, subtotal: subtotal })} />
             </View>
         </View>
     )

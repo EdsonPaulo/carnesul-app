@@ -9,9 +9,10 @@ import Category from './Category'
 import SearchPage from './SearchPage'
 import ProductDetails from './ProductDetails'
 import OrderDetails from './OrderDetails'
+import AddressPage from './AddressPage'
 
 export { 
     Welcome, Landing, Login, SignUp, Forgot,
     HomePage, CartPage, Wishlist, ProductDetails, OrderDetails,
-    SearchPage, Category, ProfilePage, Checkout, Orders
+    SearchPage, Category, ProfilePage, Checkout, Orders, AddressPage
 }

@@ -1,5 +1,5 @@
-import React from 'react';
-import { MaterialCommunityIcons, Ionicons} from '@expo/vector-icons';
+import React, { useContext } from 'react';
+import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import {
     View,
@@ -15,25 +15,34 @@ import {
 
 import { onRate, onShare } from '../services/utils'
 
+import AuthContext from '../contexts/auth/auth-context'
+
 import { colors, fonts, metrics } from '../constants';
+
 /*
-
-
  Condomínio Balumuka, Apto 301 - Talatona 
  +244 944 280 811 | +244 921 191 285
  comercial.carnesul@deltacorp.co.ao
 */
 
 
-
 export default SideBar = () => {
 
-    const navigation = useNavigation();
+    const navigation = useNavigation()
+    const authContext = useContext(AuthContext)
+
+    const logout = () => {
+        Alert.alert(
+            'Terminar Sessão', 'Deseja terminar sessão da sua conta?', [
+            { text: 'Não', style: 'cancel' },
+            { text: 'SIm', onPress: () => authContext.logout() },
+        ], { cancelable: true })
+    }
 
     return (
         <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
             <View style={styles.userContainer}>
-            {/* <Avatar size="large" showAccessory rounded activeOpacity={0.7}
+                {/* <Avatar size="large" showAccessory rounded activeOpacity={0.7}
                 overlayContainerStyle={{ backgroundColor: colors.primaryDark }}
                 icon={{ name: 'user', type: 'font-awesome' }}
                 onPress={() => { navigation.navigate('profile') }} />
@@ -48,9 +57,14 @@ export default SideBar = () => {
                     <Text style={styles.textStyle}>Meu Perfil</Text>
                 </TouchableOpacity>
 
+                <TouchableOpacity style={styles.btn} onPress={() => { navigation.navigate('address') }}>
+                    <MaterialCommunityIcons name='map-marker-radius' style={styles.icons} />
+                    <Text style={styles.textStyle}> Meus Endereços </Text>
+                </TouchableOpacity>
+
                 <TouchableOpacity style={styles.btn} onPress={() => { navigation.navigate('cart') }}>
                     <Ionicons name='ios-cart' style={styles.icons} />
-                    <Text style={styles.textStyle}> Meu Carrinho </Text>
+                    <Text style={styles.textStyle}>Carrinho de Compras</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.btn} onPress={() => { navigation.navigate('wishlist') }}>
@@ -60,7 +74,7 @@ export default SideBar = () => {
 
                 <TouchableOpacity style={styles.btn} onPress={() => { navigation.navigate('orders') }}>
                     <MaterialCommunityIcons name='clipboard-check-outline' style={styles.icons} />
-                    <Text style={styles.textStyle}> Histórico de Compras </Text>
+                    <Text style={styles.textStyle}> Meus Pedidos </Text>
                 </TouchableOpacity>
 
                 <View style={styles.divider} />
@@ -80,14 +94,9 @@ export default SideBar = () => {
                     <Text style={styles.textStyle}>Suporte </Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.btn}>
-                    <Ionicons name='ios-settings' style={styles.icons} />
-                    <Text style={styles.textStyle}> Configurações </Text>
-                </TouchableOpacity>
-
                 <View style={styles.divider} />
 
-                <TouchableOpacity style={styles.btn}>
+                <TouchableOpacity style={styles.btn} onPress={() => logout()}>
                     <MaterialCommunityIcons name='logout' style={styles.icons} />
                     <Text style={styles.textStyle}> Terminar Sessão </Text>
                 </TouchableOpacity>
