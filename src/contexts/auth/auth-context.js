@@ -1,12 +1,14 @@
 import React from 'react';
 
 export default React.createContext({
-  user: {},
-  token: '',
-  isLogged: true,
-  checkLoggedState: () => { },
-  login: (user, token) => { },
-  logout: () => {},
-  retrieveToken: token => { },
-  register: (user, token) => { }
+    user: false,
+    token: null,
+    isLogged: false,
+    isLoading: true,
+    
+    login: (user, token) => {},
+    logout: () => {},
+    register: (user, token) => {},
+    retrieveToken: () => {},
+    checkLoggedState: () => {}
 })

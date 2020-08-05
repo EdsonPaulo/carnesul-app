@@ -9,6 +9,9 @@ export const authReducer = (prevState, action) => {
       return {
         ...prevState,
         token: action.token,
+        user: action.user,
+        isLogged: !!action.token,
+        isLoading: false
       }
     case LOGIN:
       return {
@@ -32,7 +35,6 @@ export const authReducer = (prevState, action) => {
         isLogged: true
       }
   }
-
 
   
 }

@@ -17,7 +17,7 @@ const onRate = async () => {
         'Avaliar o Carnesul', 'Avalie-nos, comente o que achou e em que podemos melhorar!', [
         { text: 'Não, Obrigado', style: 'cancel' },
         { 
-            text: 'OK', onPress: () => {
+            text: 'Avaliar', onPress: () => {
                 Rate.rate(options, success => {
                     if (success) ToastAndroid.show('Obrigado por Avaliar-nos!')
                 })
@@ -78,6 +78,7 @@ const onShare = () => {
     */
 }
 
+//save in async storage
 
 
 export { onRate, onShare }

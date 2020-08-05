@@ -3,11 +3,8 @@ import { Text, View, StyleSheet, Image, ScrollView, ActivityIndicator, Touchable
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import Icon from '@expo/vector-icons/Ionicons'
-
+import { HeaderBar } from '../../components'
 import { colors, metrics, general, fonts } from "../../constants"
-import CustomButton from '../../components/CustomButton'
-import HeaderBar from "../../components/HeaderBar"
 import ShopContext from '../../contexts/shop/shop-context';
 
 
@@ -28,7 +25,7 @@ export default index = () => {
 
             <ScrollView contentContainerStyle={styles.container}>
                 <View style={styles.textContainer}>
-                    <Text style={{ fontSize: 15, fontWeight:'bold' }}>{convertDate(order.date_created)}</Text>
+                    <Text style={{ fontSize: 15, fontWeight: 'bold' }}>{convertDate(order.date_created)}</Text>
                     <Text style={[styles.statusText, {
                         backgroundColor: order.status === 'processing' ? 'lightgreen'
                             : order.status === 'canceled' ? colors.alert : colors.grayLight
@@ -77,9 +74,6 @@ export default index = () => {
                     <Text>{order.shipping.address_1}</Text>
                     <Text>Angola - {order.shipping.city}</Text>
                     <Text>+244 {order.billing.phone}</Text>
-
-
-
                 </View>
             </ScrollView>
         </SafeAreaView>

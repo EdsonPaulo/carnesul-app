@@ -3,8 +3,7 @@ import { Text, View, Image, StatusBar, TouchableOpacity, ImageBackground } from 
 import { useNavigation } from '@react-navigation/native'
 
 import styles from './styles'
-
-import CustomButton from '../../components/CustomButton'
+import { CustomButton } from '../../components'
 import { metrics, fonts, colors } from '../../constants'
 import AuthContext from '../../contexts/auth/auth-context'
 
@@ -12,18 +11,7 @@ import AuthContext from '../../contexts/auth/auth-context'
 const Landing = () => {
 
     const navigation = useNavigation()
-    const authContext = useContext(AuthContext)
-
-    const signIn = () => {
-        const user = {
-            name: 'Edson Paulo',
-            id: 12
-        }
-        const token = 'FAKE-TOKEN-FOR-TEST'
-        authContext.login(user, token)
-    }
-
-  
+    const { login } = useContext(AuthContext)
 
     return (
         <View style={[styles.background, { padding: 0 }]}>
@@ -42,8 +30,8 @@ const Landing = () => {
 
             <View style={{ width: '100%', flex: 1 / 3, padding: metrics.doubleBaseMargin }}>
                 <CustomButton primary title="Iniciar Sessão" onPress={() => navigation.navigate('login')} />
-                <CustomButton title="Criar Conta" onPress={() =>  navigation.navigate('signup')} />
-                <TouchableOpacity onPress={() => signIn()}>
+                <CustomButton title="Criar Conta" onPress={() => navigation.navigate('signup')} />
+                <TouchableOpacity onPress={() => login({}, "away-token")}>
                     <Text style={[styles.bottomText, { marginTop: metrics.baseMargin }]}>Entrar como visitante</Text>
                 </TouchableOpacity>
             </View>

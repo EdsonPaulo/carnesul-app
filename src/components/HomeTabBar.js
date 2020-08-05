@@ -1,5 +1,5 @@
 
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
@@ -23,7 +23,7 @@ const HomeTabBar = ({ state, descriptors, navigation }) => (
         const { options } = descriptors[route.key];
         const label = options.tabBarLabel
         const isFocused = state.index === index;
-        const context = (route.name === 'cart') ? useContext(ShopContext) : null
+        const { cart } = useContext(ShopContext)
 
         const onPress = () => {
           const event = navigation.emit({
@@ -43,11 +43,13 @@ const HomeTabBar = ({ state, descriptors, navigation }) => (
           })
         }
 
-        const getCartSize = () => {
-          let size = 0
-          context.cart.map(item => size += item.quantity)
-          return size
-        }
+        const getCartSize = () => (
+          useMemo(() => {
+            let size = 0
+            cart.forEach(item => size += item.quantity)
+            return size
+          }, [cart])
+        )
 
         let iconName;
 

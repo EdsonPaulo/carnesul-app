@@ -1,10 +1,9 @@
 import React, { } from 'react'
-import { Text, View, Image, StatusBar, TouchableOpacity } from 'react-native'
+import { Image } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import Onboarding from 'react-native-onboarding-swiper'
 
-import CustomButton from '../../components/CustomButton'
-import { metrics, fonts, colors } from '../../constants'
+import { colors } from '../../constants'
 import styles from './styles'
 
 
@@ -21,12 +20,6 @@ const Welcome = () => {
                 navigation.navigate("landing")
             }}
             pages={[
-                {
-                    backgroundColor: colors.accent,
-                 //   image: <Image source={require('../../assets/icon.png')} resizeMode="center" />,
-                    title: 'Bem-Vindo ao Carnesul',
-                    subtitle: 'Desfrute de carnes frescas, da melhor qualidade!'
-                },
                 {
                     backgroundColor: colors.primary,
                     image: <Image source={require('../../assets/meat.png')} />,
@@ -47,8 +40,10 @@ const Welcome = () => {
                 },
                 {
                     backgroundColor: colors.primaryDark,
-                    title: 'CARNESUL',
                     image: <Image source={require('../../assets/icon.png')} resizeMode="center" />,
+                    title: 'Bem-Vindo ao Carnesul',
+                    subtitle: 'Desfrute de carnes frescas, da melhor qualidade!'
+                    //title: 'CARNESUL',
                 }
             ]}
         />

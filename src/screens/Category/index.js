@@ -3,26 +3,25 @@ import { Text, View, FlatList, Alert, StyleSheet, InteractionManager, ActivityIn
 import { useRoute } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import HeaderBar from '../../components/HeaderBar';
-import ProductVerticalList from '../../components/product/ProductVerticalList'
+import { HeaderBar, ProductVerticalList, LoadingSpin } from '../../components'
 import { colors, metrics, fonts, general } from '../../constants'
-
-import api from '../../services/api';
+import api from '../../services/api'
 
 export default index = () => {
-
+    let isMounted = true
     const route = useRoute()
     const [interactionsComplete, setInteractionsComplete] = useState(false)
     const [categories, setCategories] = useState([{ id: null, name: 'Tudo' }])
     const [categoryId, setCategoryId] = useState(81)
 
-    let isMounted = true
 
     const loadProductCategories = () => {
         api.get('/products/categories')
             .then(response => {
-                if (isMounted)
+                if (isMounted) {
                     setCategories(response.data.filter(category => category.count > 0))
+                    setCategoryId(route.params?.categoryId || categoryId)
+                }
             })
             .catch(err => {
                 console.log(err + ' ===> erro')
@@ -34,14 +33,20 @@ export default index = () => {
             setInteractionsComplete(true)
         }).then(() => {
             isMounted = true
-            loadProductCategories()
+            if (categories.length <= 0)
+                loadProductCategories()
         })
-        return () => { isMounted = false }
+        return () => isMounted = false
     }, [])
 
 
     useEffect(() => {
-        setCategoryId(route.params?.categoryId || categoryId)
+        if (categories.length <= 0) {
+            if (isMounted)
+                setCategories(route.params?.categories)
+        }
+        else
+            setCategoryId(route.params?.categoryId || categoryId)
         return () => { }
     }, [route.params?.categoryId])
 
@@ -55,6 +60,7 @@ export default index = () => {
                 <Text style={styles.categoryItemText}>{category.name} ({category.count || 0})</Text>
             </TouchableOpacity>
         )
+
         return (
             <FlatList horizontal bounces
                 showsHorizontalScrollIndicator={false}
@@ -66,23 +72,14 @@ export default index = () => {
         )
     }
 
-    if (!interactionsComplete) {
-        return (
-            <View style={[general.background, { justifyContent: 'center', alignItems: 'center' }]}>
-                <ActivityIndicator size="large" color={colors.primaryDark} />
-            </View>
-        )
-    }
+    if (!interactionsComplete) { return <LoadingSpin /> }
 
     return (
         <SafeAreaView style={general.background}>
             <HeaderBar title="Categorias" />
-            {
-                //categories.length <= 1 ? null :
-                    <View style={styles.categoryListContainer}>
-                        {renderCategoryList()}
-                    </View>
-            }
+            <View style={styles.categoryListContainer}>
+                {renderCategoryList()}
+            </View>
             <View style={{ flex: 1 }}>
                 <ProductVerticalList category={categoryId} />
             </View>

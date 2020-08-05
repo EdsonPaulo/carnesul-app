@@ -8,16 +8,15 @@ import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context"
 
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
-import { colors, metrics, general } from "../../constants";
-import CustomInput from '../../components/CustomInput'
-import ProductItem from '../../components/product/ProductItem'
+import { colors, metrics, general } from "../../constants"
+
+import { ProductItem, CustomInput, LoadingSpin } from '../../components'
 import useDebounce from '../../hooks/useDebounce'
 import api from '../../services/api'
 
 export default index = () => {
 
   let isMounted = false
-
   const navigation = useNavigation()
   const [searchResult, setSearchResult] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
@@ -82,10 +81,7 @@ export default index = () => {
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         {
           isSearching ?
-            <View style={{ alignItems: 'center' }}>
-              <ActivityIndicator size="large" color={colors.primary} />
-              <Text style={{ fontSize: 16 }}>Pesquisando..</Text>
-            </View>
+            <LoadingSpin text="Pesquisando.." />
             :
             searchTerm.length > 2 && searchResult.length !== 0 ?
               <FlatList bounces numColumns={numColumns}

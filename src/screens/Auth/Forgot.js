@@ -3,8 +3,7 @@ import { Text, View, KeyboardAvoidingView, TouchableOpacity, Platform} from 'rea
 import { useNavigation } from '@react-navigation/native';
 import Icon from '@expo/vector-icons/Feather'
 
-import CustomButton from '../../components/CustomButton'
-import CustomInput from '../../components/CustomInput';
+import { CustomButton, CustomInput}  from '../../components'
 import { metrics } from '../../constants';
 import styles from './styles'
 

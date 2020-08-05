@@ -25,8 +25,7 @@ export default PlaceholderImage = props => {
       alignItems: 'center'
     }}>
       <ActivityIndicator color={colors.primary} size="small" />
-      <Animated.Image {...props}
-        resizeMode="cover"
+      <Animated.Image {...props} resizeMode="cover"
         style={[style, { position: 'absolute', opacity: opacity }]}
         onLoad={onLoad} />
     </View>

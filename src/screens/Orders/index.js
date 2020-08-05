@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Text, View, FlatList, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native'
-import api from '../../services/api';
-import { SafeAreaView  } from 'react-native-safe-area-context'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { useNavigation } from '@react-navigation/native'
 
 import { colors, metrics, general } from '../../constants'
-import HeaderBar from '../../components/HeaderBar'
-import { useNavigation } from '@react-navigation/native';
+import { LoadingSpin } from '../../components'
+import { HeaderBar } from '../../components'
+import api from '../../services/api';
 
 export default index = () => {
 
@@ -65,7 +66,7 @@ export default index = () => {
     <FlatList contentContainerStyle={{ padding: metrics.baseMargin }}
       data={orders}
       renderItem={({ item }) => <Order order={item} />}
-      keyExtractor={item => item.id}
+      keyExtractor={(item, index) => index.toString()}
     />
   )
 
@@ -75,18 +76,13 @@ export default index = () => {
     </View>
   )
 
-  const renderLoading = () => (
-    <View style={styles.container}>
-      <ActivityIndicator size="large" color={colors.primaryDark} />
-    </View>
-  )
 
   return (
     <SafeAreaView style={general.background}>
       <HeaderBar raised title="Meus Pedidos" back />
       <View style={{ flex: 1 }}>
         {
-          loading ? renderLoading() :
+          loading ? <LoadingSpin /> :
             orders.length > 0 ? renderOrdersList() : renderEmptyOrders()
         }
       </View>
@@ -98,7 +94,7 @@ export default index = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: metrics.doubleBaseMargin,
     justifyContent: 'center',
     alignItems: 'center'
   },

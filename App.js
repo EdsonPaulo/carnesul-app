@@ -1,17 +1,18 @@
 import 'react-native-gesture-handler'
-import * as React from 'react'
+import React from 'react'
 import { enableScreens } from 'react-native-screens'
+enableScreens()
 import 'intl'
 import 'intl/locale-data/jsonp/pt-AO'
 import { useFonts } from '@use-expo/font'
 import { AppLoading } from 'expo'
-//import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import AuthProvider from './src/contexts/auth/auth-provider'
 
-import Router from './src/routes/RootNavigation'
+
+import Router from './src/routes/Router'
 
 export default function App() {
-
-  enableScreens()
 
   let [fontsLoaded] = useFonts({
     'Soviet': require('./src/assets/fonts/Soviet.ttf'),
@@ -21,11 +22,11 @@ export default function App() {
   if (!fontsLoaded)
     return <AppLoading />
 
-
-  {/** <SafeAreaProvider>*/ }
-  {/** </SafeAreaProvider>*/ }
-
   return (
-    <Router />
+    <AuthProvider>
+      <SafeAreaProvider>
+        <Router />
+      </SafeAreaProvider>
+    </AuthProvider>
   )
 }

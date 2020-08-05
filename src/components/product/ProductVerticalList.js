@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, FlatList, Alert, Dimensions, ActivityIndicator 
 import Icon from '@expo/vector-icons/MaterialCommunityIcons'
 
 import ProductItem from "./ProductItem"
+import LoadingSpin from "../LoadingSpin"
 import api from '../../services/api'
 import { general, colors, metrics } from "../../constants";
 
@@ -29,7 +30,6 @@ const ProductVerticalList = listParams => {
     loadProducts()
     return () => { }
   }, [listParams.category])
-
 
   const loadProducts = () => {
 
@@ -64,7 +64,6 @@ const ProductVerticalList = listParams => {
 
     if (total > 0 && products.length >= total) return
     
-
     if (products.length < total) {
       setLoading(true)
       const paramPage = '&page=' + page
@@ -86,7 +85,6 @@ const ProductVerticalList = listParams => {
           setLoading(false)
         })
     }
-
   }
 
   //rederiza o product card ou um espaco com largura equivalente se não tiver produto
@@ -105,11 +103,11 @@ const ProductVerticalList = listParams => {
         contentContainerStyle={{ paddingVertical: 15 }}
         renderItem={renderItem}
         onEndReached={loadMoreProducts}
-        onEndReachedThreshold={0.4}
+        onEndReachedThreshold={0.5}
         keyExtractor={(item, index) => index.toString()}
         ListFooterComponent={
           products.length !== total && loading ?
-            <View style={{ margin: metrics.baseMargin }}>
+            <View style={{ margin: metrics.doubleBaseMargin }}>
               <ActivityIndicator color={colors.primary} size="small" />
             </View> : null
         }
@@ -118,13 +116,7 @@ const ProductVerticalList = listParams => {
   }
 
   if (products.length === 0) {
-    if (loading)
-      return (
-        <View style={styles.centerContent}>
-          <ActivityIndicator color={colors.primary} size="large" />
-          <Text>Carregando..</Text>
-        </View>
-      )
+    if (loading) return <LoadingSpin />
     else
       if (error)
         return (

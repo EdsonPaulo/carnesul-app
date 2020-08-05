@@ -3,7 +3,7 @@ import { Text, View, ScrollView } from 'react-native'
 import { SafeAreaView } from "react-native-safe-area-context"
 
 import { colors, metrics, general } from '../../constants'
-import HeaderBar from '../../components/HeaderBar'
+import { HeaderBar }  from '../../components'
 
 export default index = () => {
 

@@ -5,11 +5,9 @@ import Icon from '@expo/vector-icons/FontAwesome5'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Picker } from '@react-native-community/picker';
 
-import api from '../../services/api';
-import HeaderBar from '../../components/HeaderBar';
-import CustomButton from '../../components/CustomButton'
-
 import { colors, metrics, general, constants, fonts } from '../../constants'
+import { HeaderBar, CustomButton }  from '../../components'
+import api from '../../services/api'
 
 const { height } = Dimensions.get('window')
 

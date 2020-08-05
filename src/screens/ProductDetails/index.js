@@ -6,9 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import Icon from '@expo/vector-icons/Ionicons'
 
 import { colors, metrics, general, fonts } from "../../constants"
-import CustomButton from '../../components/CustomButton'
-import HeaderBar from "../../components/HeaderBar"
-import PlaceholderImage from '../../components/PlaceholderImage'
+import { HeaderBar, CustomButton, PlaceholderImage }  from '../../components'
 import ShopContext from '../../contexts/shop/shop-context';
 
 

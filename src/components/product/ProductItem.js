@@ -14,17 +14,21 @@ import PlaceholderImage from '../PlaceholderImage';
 
 const ProductItem = props => {
 
-    const context = useContext(ShopContext)
+    const { addProductToCart } = useContext(ShopContext)
     const navigation = useNavigation()
     const { width, ...item } = props
 
     const containerWidth = width || 160
 
     return (
-        <TouchableOpacity activeScale={0.7} style={[general.card, styles.container, { width: containerWidth, maxWidth: 200}]}
+        <TouchableOpacity activeScale={0.7} style={[general.card, styles.container, { width: containerWidth, maxWidth: 200 }]}
             onPress={() => navigation.navigate('product', { product: item })}>
             <View style={styles.topContainer}>
-                <Text style={styles.iconQuantity}>{item.weight || 0} KG</Text>
+                {
+                    item.weight ?
+                        <Text style={styles.iconQuantity}>{item.weight || 0} {item.weight >= 1 ? "Kg" : "g"}</Text>
+                        : <View />
+                }
                 <TouchableOpacity activeScale={1.2}>
                     <Ionicons color={colors.primaryDark} size={20}
                         name={item.isFavorite ? 'ios-heart' : 'ios-heart-empty'} />
@@ -36,7 +40,7 @@ const ProductItem = props => {
                     source={(item.images?.length > 0) ? { uri: item.images[0].src } : require('../../assets/noimage.png')} />
             </View>
 
-            <View style={styles.titleContainer}>
+            <View>
                 <Text style={styles.title}>{item.name}</Text>
             </View>
 
@@ -45,7 +49,7 @@ const ProductItem = props => {
             </Text>
 
             <TouchableHighlight underlayColor={colors.grayLight} style={styles.addCart}
-                onPress={() => context.addProductToCart(item)}>
+                onPress={() => addProductToCart(item)}>
                 <MaterialCommunityIcons size={20} color={colors.grayDark} name="cart-plus" />
             </TouchableHighlight>
         </TouchableOpacity>
@@ -83,23 +87,19 @@ const styles = StyleSheet.create({
         padding: 2,
         paddingHorizontal: 4,
         borderRadius: 4,
-        fontWeight: 'bold',
+        fontWeight: 'bold'
     },
     productImageContainer: {
         width: '100%',
-        height: 80,
+        height: 95
     },
     productImage: {
         width: '100%',
-        height: '100%',
+        height: '100%'
     },
 
-    titleContainer: {
-        height: 55,
-        justifyContent: 'center'
-    },
     title: {
-        fontSize: 15,
+        fontSize: 14,
         textTransform: 'capitalize',
         textAlign: 'center',
         fontFamily: 'Lato',
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end'
     },
     price: {
-        fontSize: 16,
+        fontSize: 15,
         color: colors.accent,
         fontWeight: 'bold',
         marginTop: 2,
@@ -122,8 +122,8 @@ const styles = StyleSheet.create({
         padding: 8,
         alignItems: 'center',
         justifyContent: 'center',
-        borderWidth: 2,
-        borderColor: '#0000001a',
+        borderWidth: 1,
+        borderColor: '#0000002a',
         borderTopLeftRadius: 20,
         borderBottomRightRadius: metrics.doubleBaseRadius,
     }

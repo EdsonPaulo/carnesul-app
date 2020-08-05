@@ -4,21 +4,20 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
 
 import { general, metrics, constants, colors } from '../../constants';
-import HeaderBar from "../../components/HeaderBar"
-import CustomButton from '../../components/CustomButton';
+import { CustomButton, HeaderBar } from '../../components'
+
 
 const AddressPage = () => {
 
     let isMounted = true
 
+    const [editing, setEditing] = useState(false)
+    const [address, setAddress] = useState([])
     const address_item = {
         address_1: '',
         city: '',
         country: ''
     }
-
-    const [editing, setEditing] = useState(false)
-    const [address, setAddress] = useState([])
 
     const getAddress = async () => {
         try {
@@ -41,10 +40,9 @@ const AddressPage = () => {
     }
 
     useEffect(() => {
-        isMounted = true
+        getAddress()
         return () => isMounted = false
     }, [])
-
 
     return (
         <SafeAreaView style={general.background}>
@@ -66,48 +64,46 @@ const AddressPage = () => {
                                 minLength={2} // minimum length of text to search
                                 autoFocus
                                 returnKeyType={'search'}
-                                debounce={200} 
+                                debounce={200}
+                                fetchDetails
                                 enablePoweredByContainer={false}
                                 //   listViewDisplayed='auto'    // true/false/undefined
-                                fetchDetails
                                 // renderDescription={row => row.description} // custom description render
                                 onPress={(data, details = null) => {
                                     console.log(data, details);
                                     //if(this.props.onLocationPicked)     this.props.onLocationPicked(details)
                                 }}
-                                //etDefaultValue={() => ''}
+                                //setDefaultValue={() => ''}
                                 query={{
-                                    // available options: https://developers.google.com/places/web-service/autocomplete
                                     key: 'AIzaSyA0-NC6ta9wWm_0vdBWYl7Rr6Dhg64q-24',
                                     language: 'pt',
                                     components: 'country:ao',
-                                   // types: '(cities)' // default: 'geocode'
+                                    // types: '(cities)' // default: 'geocode'
                                 }}
                                 styles={{
-                                    textInput: {backgroundColor: colors.grayLight, height: 35, borderWidth: 1, borderColor: colors.grayDark},
-                                    textInputContainer: { width: '100%', borderTopWidth: 0, borderBottomWidth: 0, backgroundColor: 'transparent'},
+                                    container: { width: '100%', height: '100%' },
+                                    textInput: { backgroundColor: colors.bgColor, height: 35, borderWidth: 1, borderColor: colors.grayDark },
+                                    textInputContainer: { width: '100%', borderTopWidth: 0, borderBottomWidth: 0, backgroundColor: 'transparent' },
                                     description: { fontWeight: 'bold' },
                                     predefinedPlacesDescription: { color: '#1faadb' }
                                 }}
-                                // currentLocation // Will add a 'Current location' button at the top of the predefined places list
-                                // currentLocationLabel="Localização Actual"
-                                //    nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
-                                // GooglePlacesSearchQuery={{
-                                // rankby: 'distance',
-                                // type: 'cafe'
-                                //  }}
-                                //   GooglePlacesDetailsQuery={{ fields: 'formatted_address', }}
-                                //   filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
-                                //predefinedPlaces={[homePlace, workPlace]}
-                                
+                            // currentLocation // Will add a 'Current location' button at the top of the predefined places list
+                            // currentLocationLabel="Localização Actual"
+                            //    nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
+                            // GooglePlacesSearchQuery={{
+                            // rankby: 'distance',
+                            // type: 'cafe'
+                            //  }}
+                            //   GooglePlacesDetailsQuery={{ fields: 'formatted_address', }}
+                            //   filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
+                            //predefinedPlaces={[homePlace, workPlace]}
+
                             //renderLeftButton={()  => <Image source={require('path/custom/left-icon')} />}
                             //renderRightButton={() => <Text>Custom text after the input</Text>}
                             />
                     }
                 </View>
             </View>
-
-
         </SafeAreaView>
     )
 }
@@ -115,12 +111,10 @@ const AddressPage = () => {
 const styles = StyleSheet.create({
     addressContainer: {
 
-
     },
     addAdressContainer: {
 
     }
 })
-
 
 export default AddressPage;

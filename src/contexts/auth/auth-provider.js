@@ -1,5 +1,5 @@
 import React, { useReducer, useMemo } from 'react'
-import axios from "axios"
+//import axios from "axios"
 import { AsyncStorage } from "react-native"
 
 import AuthContext from './auth-context'
@@ -8,13 +8,12 @@ import { constants } from '../../constants'
 
 const AuthProvider = props => {
 
-  const initialAuthState = {
+  const [authState, dispatch] = useReducer(authReducer, {
     user: null,
     token: null,
-    isLogged:  true
-  }
-
-  const [authState, dispatch] = useReducer(authReducer, { initialAuthState })
+    isLogged: false,
+    isLoading: true
+  })
 
   const checkLoggedState = async () => {
     try {
@@ -28,19 +27,15 @@ const AuthProvider = props => {
     }
   }
 
-
   const login = async (user, token) => {
     try {
-      //STORE DATA
       await AsyncStorage.multiSet([
         [constants.USER_KEY, JSON.stringify(user)],
         [constants.TOKEN_KEY, token]
       ])
-      console.log('logou: ' + initialAuthState.isLogged)
-      //AXIOS AUTHORIZATION HEADER
+      console.log('logou: ' + authState.isLogged)
       //    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
-      //DISPATCH TO REDUCER
-      dispatch({ type: LOGIN, user: user, token: token })
+      dispatch({ type: LOGIN, user, token })
     } catch (error) {
       throw new Error(error)
     }
@@ -53,35 +48,55 @@ const AuthProvider = props => {
         constants.TOKEN_KEY,
         constants.USER_KEY
       ])
-      //AXIOS AUTHORIZATION HEADER
       //  delete axios.defaults.headers.common["Authorization"]
-      //DISPATCH TO REDUCER
       dispatch({ type: LOGOUT });
     } catch (error) {
       throw new Error(error);
     }
   }
 
-  const retrieveToken = token => {
-    dispatch({ type: RETRIEVE_TOKEN, token: token })
+  const retrieveToken = async () => {
+    let user, token;
+    try {
+      token = await AsyncStorage.getItem(constants.TOKEN_KEY);
+      user = await AsyncStorage.getItem(constants.USER_KEY);
+    } catch (e) {
+      // Restoring token failed
+    }
+
+    // After restoring token, we may need to validate it in production apps
+    dispatch({ type: RETRIEVE_TOKEN, token, user })
   }
 
-  const register = (user, token) => {
-    dispatch({ type: REGISTER, user: user, token: token })
+  const register = async (user, token) => {
+    try {
+      await AsyncStorage.multiSet([
+        [constants.USER_KEY, JSON.stringify(user)],
+        [constants.TOKEN_KEY, token]
+      ])
+      //    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
+      dispatch({ type: REGISTER, user, token })
+    } catch (error) {
+      throw new Error(error)
+    }
   }
+
+
 
   const value = useMemo(() => {
     return {
-      isLogged: authState.isLogged,
-      token: authState.token,
       user: authState.user,
-      checkLoggedState: checkLoggedState,
+      token: authState.token,
+      isLogged: !!authState.token,
+      isLoading: authState.isLoading,
+
       login: login,
       logout: logout,
+      register: register,
       retrieveToken: retrieveToken,
-      register: register
+      checkLoggedState: checkLoggedState
     }
-  }, [authState])
+  })
 
   return (
     <AuthContext.Provider value={value}>

@@ -6,24 +6,24 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { colors, metrics, general, fonts, constants } from '../../constants'
 import ShopContext from '../../contexts/shop/shop-context'
-import CustomButton from '../../components/CustomButton'
-import HeaderBar from '../../components/HeaderBar'
+import { CustomButton, HeaderBar } from '../../components'
+
 
 export default index = () => {
 
     const navigation = useNavigation()
-    const context = useContext(ShopContext)
     const [subtotal, setSubtotal] = useState(0)
     const [tax, setTax] = useState(5000)
+    const { cart, incrementProductQuantity, decrementProductQuantity, removeProductFromCart } = useContext(ShopContext)
 
     useEffect(() => {
         calculateTotal()
-    }, [context.cart])
+    }, [cart])
 
     //calcular o valor total
     const calculateTotal = () => {
         let acumulator = 0
-        context.cart.forEach(element => {
+        cart.forEach(element => {
             acumulator += (element.price * element.quantity)
         })
         setSubtotal(acumulator)
@@ -45,12 +45,12 @@ export default index = () => {
             <View style={{ flex: 1, width: '100%' }}>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     {
-                        context.cart.map((item, i) => {
+                        cart.map((item, i) => {
 
                             let quantity = item.quantity
 
                             return (
-                                <View style={styles.productContainer} key={i}>
+                                <View style={styles.productContainer} key={item.id}>
                                     <View style={styles.productImage}>
                                         <PlaceholderImage style={styles.productImage}
                                             source={(item.images?.length > 0) ? { uri: item.images[0].src } : require('../../assets/noimage.png')} />
@@ -63,23 +63,21 @@ export default index = () => {
                                             </Text>
                                         </View>
                                         <View style={styles.productActionContainer}>
-                                            <TouchableOpacity style={{ width: 35 }} onPress={() => context.removeProductFromCart(item.id)}>
+                                            <TouchableOpacity style={{ width: 35 }} onPress={() => removeProductFromCart(item.id)}>
                                                 <Ionicons name="ios-close-circle-outline" size={25} color={colors.grayDark2} />
                                             </TouchableOpacity>
                                             <View style={styles.productQuantityContainer}>
-                                                <TouchableOpacity style={{ width: 35 }} onPress={() => context.decrementProductQuantity(item.id)}>
+                                                <TouchableOpacity style={{ width: 35 }} onPress={() => decrementProductQuantity(item.id)}>
                                                     <Ionicons name="ios-remove-circle" size={25} color={colors.grayDark2} />
                                                 </TouchableOpacity>
                                                 <Text style={styles.productQuantity}>{item.quantity}</Text>
-                                                <TouchableOpacity style={{ width: 35 }} onPress={() => context.incrementProductQuantity(item.id)}>
+                                                <TouchableOpacity style={{ width: 35 }} onPress={() => incrementProductQuantity(item.id)}>
                                                     <Ionicons name="ios-add-circle" size={25} color={colors.grayDark2} />
                                                 </TouchableOpacity>
                                             </View>
                                         </View>
                                     </View>
                                 </View>
-
-
                             )
                         })
                     }
@@ -104,7 +102,7 @@ export default index = () => {
                         {transformPrice(subtotal + tax)}
                     </Text>
                 </View>
-                <CustomButton primary title="Fazer Pedido" onPress={() => navigation.navigate('checkout', { cart: context.cart, subtotal: subtotal })} />
+                <CustomButton primary title="Fazer Pedido" onPress={() => navigation.navigate('checkout', { cart: cart, subtotal: subtotal })} />
             </View>
         </View>
     )
@@ -116,7 +114,7 @@ export default index = () => {
             <HeaderBar raised title="Meu Carrinho" />
 
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                {context.cart.length == 0 ? renderEmptyCart() : renderCart()}
+                {cart.length == 0 ? renderEmptyCart() : renderCart()}
             </View>
         </SafeAreaView>
     )

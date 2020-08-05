@@ -29,13 +29,13 @@ import { colors, fonts, metrics } from '../constants';
 export default SideBar = () => {
 
     const navigation = useNavigation()
-    const authContext = useContext(AuthContext)
+    const {logout} = useContext(AuthContext)
 
-    const logout = () => {
+    const Logout = () => {
         Alert.alert(
             'Terminar Sessão', 'Deseja terminar sessão da sua conta?', [
             { text: 'Não', style: 'cancel' },
-            { text: 'SIm', onPress: () => authContext.logout() },
+            { text: 'SIm', onPress: () => logout() },
         ], { cancelable: true })
     }
 
@@ -96,7 +96,7 @@ export default SideBar = () => {
 
                 <View style={styles.divider} />
 
-                <TouchableOpacity style={styles.btn} onPress={() => logout()}>
+                <TouchableOpacity style={styles.btn} onPress={() => Logout()}>
                     <MaterialCommunityIcons name='logout' style={styles.icons} />
                     <Text style={styles.textStyle}> Terminar Sessão </Text>
                 </TouchableOpacity>

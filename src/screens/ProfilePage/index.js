@@ -4,10 +4,7 @@ import { useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Ionicons, Feather } from '@expo/vector-icons'
 
-import HeaderBar from '../../components/HeaderBar'
-import CustomInput from '../../components/CustomInput'
-
-
+import { HeaderBar, CustomInput }  from '../../components'
 import { colors, metrics, general } from '../../constants'
 
 export default index = () => {

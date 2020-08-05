@@ -5,25 +5,15 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import {
     Text,
     View,
-    Alert,
-    Image,
     AsyncStorage,
     StyleSheet,
-    BackHandler,
-    ToastAndroid,
-    Dimensions,
     ScrollView,
     TouchableOpacity
 } from 'react-native'
 
-import Icon from '@expo/vector-icons'
-
 import { colors, metrics, general, fonts, constants } from '../../constants'
+import { HeaderBar, SwiperCards, ProductHorizontalList, CategoryList } from '../../components'
 import ShopContext from '../../contexts/shop/shop-context'
-
-import ProductHorizontalList from '../../components/product/ProductHorizontalList'
-import SwiperCards from '../../components/SwiperCards'
-import HeaderBar from '../../components/HeaderBar';
 
 const index = () => {
 
@@ -84,6 +74,8 @@ const index = () => {
                         </TouchableOpacity>
                     </View>
 
+                    {/** 
+
                     <View style={[styles.sectionTopContainer, { marginVertical: 0 }]}>
                         <TouchableOpacity style={styles.categoryContainer}
                             onPress={() => navigation.navigate('category', { categoryId: 81 })}>
@@ -109,6 +101,10 @@ const index = () => {
                             <Text style={styles.categoryTitle}>Ovideo</Text>
                         </TouchableOpacity>
                     </View>
+                */}
+
+                    <CategoryList />
+
                 </View>
 
                 <View style={styles.productSection}>
